@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06baea7a805d0c34bba54dc2244d7866, type: 3}
+  m_Name: Discardo
+  m_EditorClassIdentifier: Assembly-CSharp::AmountOfCardsInDiscardPileCard
+  CardName: Discardo
+  CardDescription: This card's value equals to the amount of cards in the discard
+    pile * 1
+  ManaCost: 2
+  CardValue: 0
+  CardFront: {fileID: 21300000, guid: 0531175bf508bfe4893a695f495af1df, type: 3}
+  CardUpgrades:
+  - UpgradeCost: 2
+    UpgradeDescription: Increase the amount of points gained per card in the discard
+      pile by 1.
+    UpgradeName: Dead Space
+  CardType: 3
+  CanUseUpgrade_01: 1
+  CanUseUpgrade_02: 1
