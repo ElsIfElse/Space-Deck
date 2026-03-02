@@ -71,6 +71,7 @@ public class CardMover : MonoBehaviour
     // }
     public void MoveCard(Transform moveTo,Transform cardToMove,CardPositionType cardPositionType, float cardCount = 0)
     {
+        // cardToMove.DOMove(_cardPositions[cardPositionType].position+new Vector3(cardCount*0.01f,0,cardCount*0.05f),1 / GameStateManager.Instance.GlobalValues.AnimationSpeed).SetEase(Ease.InOutSine);
         cardToMove.DOMove(moveTo.position+new Vector3(cardCount*0.01f,0,cardCount*0.05f),1 / GameStateManager.Instance.GlobalValues.AnimationSpeed).SetEase(Ease.InOutSine);
         cardToMove.DORotate(_cardRotations[cardPositionType],0.5f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
     }

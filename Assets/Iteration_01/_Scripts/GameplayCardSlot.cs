@@ -32,8 +32,7 @@ public class GameplayCardSlot : MonoBehaviour,IPointerClickHandler,IPointerEnter
     public Card CardInSlot() => CurrentCardInSlot;
     public void AddCardToSlot(Card card)
     {
-        CurrentCardInSlot = card; 
-        CurrentCardInSlot.transform.SetParent(gameObject.transform,true);
+        CurrentCardInSlot = card;
     }
     public void RemoveCardFromSlot()
     {
@@ -98,4 +97,9 @@ public class GameplayCardSlot : MonoBehaviour,IPointerClickHandler,IPointerEnter
         LightTween = SlotLight.DOIntensity(0,0.5f);
         CardDetailDisplayer.Instance.HideDetailDisplay();
     }
-}
+
+    public void ParentCardInSlot()
+    {
+        CurrentCardInSlot.gameObject.transform.SetParent(gameObject.transform,true);
+    }
+} 

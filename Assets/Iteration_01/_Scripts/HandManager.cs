@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class HandManager : MonoBehaviour
 {
     float _cardOffset = 1.5f;
+
 
     public List<GameplayCardSlot> _activeCardSlots = new();
     public List<GameplayCardSlot> _emptyCardSlots;
@@ -16,6 +18,8 @@ public class HandManager : MonoBehaviour
         _emptyCardSlots.RemoveAt(0);
         _activeCardSlots.Add(slot);
         slot.AddCardToSlot(card);
+
+        // card.gameObject.transform.SetParent(slot.gameObject.transform,true);
         return slot;
     }
 

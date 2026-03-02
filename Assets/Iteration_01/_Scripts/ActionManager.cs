@@ -58,7 +58,7 @@ public class ActionManager : MonoBehaviour
         CreateCardsAtGameStart();
         PointCounterManager.Instance.Initialize();
         GameplayUiManager.Instance.LocationInfoUiHandler.Initialize();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         OnStartRound();
     }
 
@@ -68,8 +68,7 @@ public class ActionManager : MonoBehaviour
         foreach(BaseCardData cardData in PlayerDeckHandler.Instance.RuntimeCards)
         {
             GameObject newCardObj = CardFactory.Instance.CreateNewCard();
-            // newCardObj.transform.position = DeckManager.DeckPosition.position;
-            CardMover.Instance.MoveCard(CardMover.Instance._cardPositions[CardPositionType.Deck],newCardObj.transform,CardPositionType.Deck,cardCount);
+            newCardObj.transform.position = DeckManager.DeckPosition.position + new Vector3(cardCount*0.01f,0,cardCount*0.05f);
             Card newCard = newCardObj.GetComponent<Card>();
             newCard.SetCard(cardData);
             DeckManager.AddCardToDeck(newCard);
@@ -86,30 +85,42 @@ public class ActionManager : MonoBehaviour
         _canPlayCard = false;
         List<GameplayCardSlot> slots = new();
 
+        // Add cards to hand and activate the hand slots
         for(int i = 0; i < amount; i++)
         {
             Card newCard = DeckManager.RemoveTopCard();
 
+            // If there are no more cards in the deck, move cards from discard pile to deck
             if(newCard == null)
             {
                 yield return StartCoroutine(MoveCardsFromDiscardPileToDeckRoutine());
                 newCard = DeckManager.RemoveTopCard();
             }
-
+ 
             GameplayCardSlot slotToAdd = HandManager.AddCardToSlot(newCard);
             slots.Add(slotToAdd);
             yield return null;
         }
 
+        // Rearrange the slot positions
         HandManager.RearrangeCardSlots(true);
 
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.3f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+        yield return null;
 
+        // Move the cards to the slot positions
         foreach(GameplayCardSlot slot in slots)
         {
             CardMover.Instance.MoveCard(slot.transform,slot.CurrentCardInSlot.transform,CardPositionType.Hand);
             PlayCardDealingSound();
             yield return new WaitForSeconds(0.3f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+        }
+
+        // Wait for parenting so that the cards are in the right position when animation ends
+        yield return new WaitForSeconds(0.01f);
+        foreach(GameplayCardSlot slot in slots)
+        {
+            slot.ParentCardInSlot();
         }
 
         _canPlayCard = true; 
@@ -134,8 +145,9 @@ public class ActionManager : MonoBehaviour
     public void OnPlayCard(GameplayCardSlot cardSlot)
     {
         if(_canPlayCard == false) return;
-
         Card card = cardSlot.CardInSlot();
+
+        // Check if there is enough mana
         if(!ManaHandler.HasEnoughMana(card.ManaCost))
         {
             AudioManager.Instance.Play(AudioType.CantDoThat);
@@ -143,6 +155,7 @@ public class ActionManager : MonoBehaviour
             return;
         }
 
+        // If yes play the card
         StartCoroutine(OnPlayCardRoutine(cardSlot));
     }
     IEnumerator OnPlayCardRoutine(GameplayCardSlot cardSlot)
@@ -151,9 +164,8 @@ public class ActionManager : MonoBehaviour
         PlayCardPlayedSound();
 
         Card currentcard = cardSlot.CardInSlot();
-
         ManaHandler.SpendMana(currentcard.ManaCost);
-
+        
         CardMover.Instance.MoveCard(CardMover.Instance._cardPositions[CardPositionType.Field],currentcard.transform,CardPositionType.Field);
         yield return new WaitForSeconds(1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
 
@@ -291,6 +303,10 @@ public class ActionManager : MonoBehaviour
     void PlayCardPlayedSound() => AudioManager.Instance.Play(AudioType.CardPlayed,0,true);
     void PlayCardToDiscardPileSound() => AudioManager.Instance.Play(AudioType.CardDoDiscardPile,0,true);
     void PlayCardDealingSound () => AudioManager.Instance.Play(AudioType.CardDealing,0,true);
+    
+    /// <summary>
+    /// Sets the stata of the gameplay so that player is blocked from playing cards at times.
+    /// </summary>
     void SetCanPlayCard(bool state) => _canPlayCard = state;
     bool IsCardEffectDoubled() => CardEffects.DoubleNextTurn;
 
