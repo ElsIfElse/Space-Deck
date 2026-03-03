@@ -45,8 +45,8 @@ public class GameplayTurnStart : IGameplayState
 
         // Rearrange slot positions
         yield return null;
-        _handManager.RearrangeCardSlots(true);
-        yield return new WaitForSeconds(_handManager.RearrangeCardsLength*4);
+        _handManager.RearrangeCardSlots();
+        yield return new WaitForSeconds(_handManager.RearrangeCardsLength*amount);
 
         // Move cards to the slot positions
         for(int i = 0; i< amount; i++)

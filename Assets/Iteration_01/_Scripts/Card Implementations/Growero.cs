@@ -29,4 +29,13 @@ public class Growero : BaseCardData
         SetDescription_Effect_01();
         OnUpgrade_Post(menuSlot);
     }
+    public override void Upgrade_02(MenuSlot menuSlot)
+    {
+        Upgrade upgrade = CardUpgrades[1];
+        if(!CanAfford(upgrade,menuSlot)) return;
+        SpendCurrency(upgrade);
+        IncreaseUpgradeCost(upgrade,2);
+        CardValue++;
+        OnUpgrade_Post(menuSlot);
+    }
 }

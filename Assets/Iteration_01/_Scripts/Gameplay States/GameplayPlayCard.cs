@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 public class GamePlayPlayCard : IGameplayState
@@ -10,7 +11,13 @@ public class GamePlayPlayCard : IGameplayState
     CardEffects _cardEffects;
     DiscardPileManager _discardPileManager;
 
-    float _delayAfterCardPlay = 0.75f;
+    float _delayAfterCardPlay
+    {
+        get
+        {
+            return 0.75f / GameStateManager.Instance.GlobalValues.AnimationSpeed;
+        }
+    }
     public void Initialize(GameplayStateDataStruct data)
     {
         _coroutineHelper = data.CoroutineHelper;

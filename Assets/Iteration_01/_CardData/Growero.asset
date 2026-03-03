@@ -24,6 +24,10 @@ MonoBehaviour:
       hand by 1.
     UpgradeName: Chunkerson
     CurrencyType: 0
+  - UpgradeCost: 2
+    UpgradeDescription: Increase card value by 1.
+    UpgradeName: More chunk
+    CurrencyType: 0
   CardType: 4
   CanUseUpgrade_01: 1
   CanUseUpgrade_02: 1
