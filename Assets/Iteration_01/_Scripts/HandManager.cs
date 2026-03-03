@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -10,10 +9,9 @@ public class HandManager : MonoBehaviour
     {
         get
         {
-            return 0.3f / GameStateManager.Instance.GlobalValues.AnimationSpeed;
+            return 0.2f / GameStateManager.Instance.GlobalValues.AnimationSpeed;
         }
     }
-
 
     public List<GameplayCardSlot> _activeCardSlots = new();
     public List<GameplayCardSlot> _emptyCardSlots;
@@ -25,8 +23,6 @@ public class HandManager : MonoBehaviour
         _emptyCardSlots.RemoveAt(0);
         _activeCardSlots.Add(slot);
         slot.AddCardToSlot(card);
-
-        // card.gameObject.transform.SetParent(slot.gameObject.transform,true);
         return slot;
     }
 
@@ -58,10 +54,9 @@ public class HandManager : MonoBehaviour
     }
 
     public void RemoveAndDestroyAllCardsFromSlots()
-    {
+{
         if(_activeCardSlots.Count == 0) return;
         
-        // ✅ Iterate over a snapshot copy
         List<GameplayCardSlot> slotsToRemove = new(_activeCardSlots);
         
         foreach(GameplayCardSlot slot in slotsToRemove)
@@ -71,7 +66,7 @@ public class HandManager : MonoBehaviour
             slot.gameObject.SetActive(false);
         }
         
-        _activeCardSlots.Clear(); // ✅ Clear the original after iteration
+        _activeCardSlots.Clear();
     }
 
     public List<GameplayCardSlot> NotEmptySlots()
@@ -108,19 +103,13 @@ public class HandManager : MonoBehaviour
 
     public void RearrangeCardSlots(bool immediate = false)
     {
-        if(immediate)
+        int lastIndex = _activeCardSlots.Count - 1;
+        float duration = immediate ? 0 : RearrangeCardsLength;
+
+        for(int i = 0; i < _activeCardSlots.Count; i++)
         {
-            for(int i = 0; i < _activeCardSlots.Count; i++)
-            {
-                _activeCardSlots[i].transform.DOMoveX(CalculateSlotPosition(i),0);
-            }
-        }
-        else
-        {
-            for(int i = 0; i < _activeCardSlots.Count; i++)
-            {
-                _activeCardSlots[i].transform.DOMoveX(CalculateSlotPosition(i),RearrangeCardsLength);
-            }
+            int reversedIndex = lastIndex -i;
+            _activeCardSlots[i].transform.DOMoveX(CalculateSlotPosition(reversedIndex),duration);
         }
 
         foreach(GameplayCardSlot slot in _activeCardSlots)

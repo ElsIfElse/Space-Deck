@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,12 +46,13 @@ public class GameplayTurnStart : IGameplayState
         // Rearrange slot positions
         yield return null;
         _handManager.RearrangeCardSlots(true);
-        yield return null;
+        yield return new WaitForSeconds(_handManager.RearrangeCardsLength*4);
 
         // Move cards to the slot positions
         for(int i = 0; i< amount; i++)
         {
-            Card card = _deckManager.RemoveTopCard();
+            Card card = null;
+            yield return _coroutineHelper.StartRoutine(TryDrawCard(c => card = c));
 
             if(card == null)
             {
@@ -61,7 +63,7 @@ public class GameplayTurnStart : IGameplayState
 
             cards.Add(card);
             MoveCardToSlotPosition(card,slots[i]);
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.15f);
         }
 
         if(debug) Debug.Log($"Cards drawn [${cards.Count}].");
@@ -91,29 +93,40 @@ public class GameplayTurnStart : IGameplayState
     void SetCanInteract(bool state) => ActionManager.Instance.SetcanInteract(state);
 
     public IEnumerator MoveCardsFromDiscardPileToDeckRoutine()
-{
-    Debug.Log("Moving cards from discard pile to deck..");
-    List<Card> cardsToMove = new();
-
-    int count = _discardPileManager.DiscardedPileList.Count;
-    for(int i = 0; i < count; i++)
     {
-        Card removedCard = _discardPileManager.RemoveCardFromDiscardedPile();
-        cardsToMove.Add(removedCard);
-        _deckManager.AddCardToDeck(removedCard);
+        int count = _discardPileManager.DiscardedPileList.Count;
+        for(int i = 0; i < count; i++)
+        {
+            Card removedCard = _discardPileManager.RemoveCardFromDiscardedPile();
+            _deckManager.AddCardToDeck(removedCard);
+        }
+    
+        _deckManager.ShuffleDeck(); // Shuffle first
+    
+        yield return null;
+    
+        // Now move visually in shuffled deck order
+        for(int i = 0; i < _deckManager.DeckCount(); i++)
+        {
+            Card card = _deckManager.CardsInDeck[i];
+            CardMover.Instance.MoveCardFromDiscardPileToDeck(card, i);
+            yield return new WaitForSeconds(0.1f);
+        }
+    
+        yield return new WaitForSeconds(CardMover.Instance.DiscardPileToDeckMoveTime);
+    }
+    IEnumerator TryDrawCard(Action<Card> onCard)
+    {
+        Card card = _deckManager.RemoveTopCard();
+
+        if (card == null)
+        {
+            Debug.Log("Not enough cards in deck. Shuffling discard pile into deck.");
+            yield return _coroutineHelper.StartRoutine(MoveCardsFromDiscardPileToDeckRoutine());
+            card = _deckManager.RemoveTopCard();
+        }
+
+        onCard?.Invoke(card);
     }
 
-    _deckManager.ShuffleDeck();
-
-    yield return null;
-
-    foreach(Card card in cardsToMove)
-    {
-        CardMover.Instance.MoveCardFromDiscardPileToDeck(card);
-        yield return new WaitForSeconds(0.05f);
-    }
-
-    yield return new WaitForSeconds(CardMover.Instance.DiscardPileToDeckMoveTime);
-    Debug.Log("Cards moved!");
-}
 }

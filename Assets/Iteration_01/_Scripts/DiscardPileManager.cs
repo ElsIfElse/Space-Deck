@@ -5,7 +5,7 @@ public class DiscardPileManager : MonoBehaviour
 {
     public List<Card> _discardedPileList = new(); public List<Card> DiscardedPileList => _discardedPileList;
 
-    public void AddCardToDisardedPile(Card card)
+    public void AddCardToDiscardedPile(Card card)
     {
         _discardedPileList.Add(card);
         GameplayUiManager.Instance.DiscardPileUiHandler.UpdateDiscardPileCountText(DeckCount());

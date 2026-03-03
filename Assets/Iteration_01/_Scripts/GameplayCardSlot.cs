@@ -70,7 +70,7 @@ public class GameplayCardSlot : MonoBehaviour,IPointerClickHandler,IPointerEnter
         LightTween = SlotLight.DOIntensity(18,0.5f);
         if(ActionManager.Instance.CanInteract) hoverTween_Upwards = gameObject.transform.DOMoveY(originalPosition.y + HoverMoveDistance,0.2f);
 
-        if(!ActionManager.Instance.CanInteract) hoverTween_Rotation = gameObject.transform.DORotate(new Vector3(0, 15, 0),0.1f).OnComplete(() => 
+        if(ActionManager.Instance.CanInteract) hoverTween_Rotation = gameObject.transform.DORotate(new Vector3(0, 15, 0),0.1f).OnComplete(() => 
         hoverTween_Rotation = gameObject.transform.DORotate(new Vector3(0, -15, 0),0.1f)).OnComplete(() => 
         hoverTween_Rotation = gameObject.transform.DORotate(originalRotation,0.2f));
 

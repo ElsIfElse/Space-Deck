@@ -60,8 +60,8 @@ public class GameplayEndTurn : IGameplayState
 
         foreach(GameplayCardSlot slot in slots)
         {
-            CardMover.Instance.MoveCardFromHandToDiscardPile(slot.CardInSlot());
-            _discardPileManager.AddCardToDisardedPile(slot.CardInSlot());
+            CardMover.Instance.MoveCardFromHandToDiscardPile(slot.CardInSlot(),_discardPileManager.DeckCount());
+            _discardPileManager.AddCardToDiscardedPile(slot.CardInSlot());
             _handManager.RemoveCardFromSlot(slot);
             yield return new WaitForSeconds(0.05f);
         }   

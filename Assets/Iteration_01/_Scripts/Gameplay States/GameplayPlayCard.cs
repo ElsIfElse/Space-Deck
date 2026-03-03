@@ -9,6 +9,8 @@ public class GamePlayPlayCard : IGameplayState
     HandManager _handManager;
     CardEffects _cardEffects;
     DiscardPileManager _discardPileManager;
+
+    float _delayAfterCardPlay = 0.75f;
     public void Initialize(GameplayStateDataStruct data)
     {
         _coroutineHelper = data.CoroutineHelper;
@@ -33,12 +35,16 @@ public class GamePlayPlayCard : IGameplayState
 
         RemoveCardFromSlot(cardSlot);
         yield return _coroutineHelper.StartRoutine(MoveCardFromHandToField(card));
+
         if(IsEffectDoubled())
-        yield return _coroutineHelper.StartRoutine(card.CardEffect(_cardVfx));
         {
             yield return _coroutineHelper.StartRoutine(card.CardEffect(_cardVfx));
             _cardEffects.DoubleNextTurn = false;
-        }
+            yield return new WaitForSeconds(_delayAfterCardPlay);
+        }   
+
+        yield return _coroutineHelper.StartRoutine(card.CardEffect(_cardVfx));
+        yield return new WaitForSeconds(_delayAfterCardPlay);
         yield return _coroutineHelper.StartRoutine(MoveCardFromFieldToDiscardPile(card));
         yield return _coroutineHelper.StartRoutine(RearrangeCards()); 
         SetCanInteract(true);
@@ -58,8 +64,8 @@ public class GamePlayPlayCard : IGameplayState
     }
     IEnumerator MoveCardFromFieldToDiscardPile(Card card)
     {
-        CardMover.Instance.MoveCardFromFieldToDiscardPile(card);
-        _discardPileManager.AddCardToDisardedPile(card);
+        CardMover.Instance.MoveCardFromFieldToDiscardPile(card,_discardPileManager.DeckCount());
+        _discardPileManager.AddCardToDiscardedPile(card);
         yield return new WaitForSeconds(CardMover.Instance.FieldToDiscardPileMoveTime);
         // card.transform.localPosition = Vector3.zero;
     }
