@@ -29,6 +29,12 @@ public class CardMover : MonoBehaviour
     public Vector3 FieldRotation;
     public Vector3 DiscardPileRotation;
 
+    public float DeckToSlotMoveTime {get{return 0.5f / GameStateManager.Instance.GlobalValues.AnimationSpeed;}}
+    public float HandToFieldMoveTime {get{return 0.5f / GameStateManager.Instance.GlobalValues.AnimationSpeed;}}
+    public float FieldToDiscardPileMoveTime {get{return 0.5f / GameStateManager.Instance.GlobalValues.AnimationSpeed;}}
+    public float HandToDiscardPileMoveTime {get{return 0.5f / GameStateManager.Instance.GlobalValues.AnimationSpeed;}}
+    public float DiscardPileToDeckMoveTime {get{return 0.5f / GameStateManager.Instance.GlobalValues.AnimationSpeed;}}
+
     HandManager HandManager;
 
     void CreateDictionary_Position()
@@ -76,34 +82,31 @@ public class CardMover : MonoBehaviour
         cardToMove.DORotate(_cardRotations[cardPositionType],0.5f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
     }
 
-    public void MoveCardToHand(GameplayCardSlot slot,Transform cardToMove)
+    public void MoveCardToSlotPosition(Card cardToMove,GameplayCardSlot slot)
     {
-        cardToMove.DOMove(slot.originalPosition,1 / GameStateManager.Instance.GlobalValues.AnimationSpeed).SetEase(Ease.InOutSine).OnComplete(() => cardToMove.transform.localPosition = Vector3.zero);
-        cardToMove.DORotate(slot.originalRotation,0.5f / GameStateManager.Instance.GlobalValues.AnimationSpeed);   
-    }
+        cardToMove.gameObject.transform.DOMove(slot.gameObject.transform.position,DeckToSlotMoveTime).SetEase(Ease.InOutSine);
+        cardToMove.gameObject.transform.DORotate(slot.originalRotation,DeckToSlotMoveTime);
 
-    public void DeckToHand(Transform cardTransform,CardPositionType moveToType)
-    {
-        cardTransform.DOMove(_cardPositions[moveToType].position,1);
-        cardTransform.DOLookAt(Camera.main.transform.position,1);
     }
-
-    public void HandToField(Transform cardTransform,CardPositionType moveToType)
+    public void MoveCardFromHandToField(Card cardToMove)
     {
-        cardTransform.DOMove(_cardPositions[moveToType].position,1);
-        cardTransform.DOLookAt(Camera.main.transform.position,1);
+        cardToMove.gameObject.transform.DOMove(_cardPositions[CardPositionType.Field].position,HandToFieldMoveTime).SetEase(Ease.InOutSine);
+        cardToMove.gameObject.transform.DORotate(Vector3.zero,HandToFieldMoveTime);
     }
-
-    public void FieldToDiscardPile(Transform cardTransform,CardPositionType moveToType)
+    public void MoveCardFromFieldToDiscardPile(Card cardToMove)
     {
-        cardTransform.DOMove(_cardPositions[moveToType].position,1);
-        cardTransform.DOLookAt(Camera.main.transform.position,1);
+        cardToMove.gameObject.transform.DOMove(_cardPositions[CardPositionType.Discard].position,FieldToDiscardPileMoveTime).SetEase(Ease.InOutSine);
+        cardToMove.gameObject.transform.DORotate(Vector3.zero,FieldToDiscardPileMoveTime);
     }
-
-    public void DiscardPileToDeck(Transform cardTransform,CardPositionType moveToType)
+    public void MoveCardFromHandToDiscardPile(Card cardToMove)
     {
-        cardTransform.DOMove(_cardPositions[moveToType].position,1);
-        cardTransform.DOLookAt(Camera.main.transform.position,1);
+        cardToMove.gameObject.transform.DOMove(_cardPositions[CardPositionType.Discard].position,HandToDiscardPileMoveTime).SetEase(Ease.InOutSine);
+        cardToMove.gameObject.transform.DORotate(Vector3.zero,HandToDiscardPileMoveTime);
+    }
+    public void MoveCardFromDiscardPileToDeck(Card cardToMove)
+    {
+        cardToMove.gameObject.transform.DOMove(_cardPositions[CardPositionType.Deck].position,DiscardPileToDeckMoveTime).SetEase(Ease.InOutSine);
+        cardToMove.gameObject.transform.DORotate(Vector3.zero,DiscardPileToDeckMoveTime);
     }
 
     void Start()

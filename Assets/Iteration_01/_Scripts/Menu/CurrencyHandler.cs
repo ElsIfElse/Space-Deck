@@ -16,6 +16,8 @@ public class CurrencyHandler
         MenuUiManager.Instance.MenuCurrencyUiHandler.UpdateCurrencyText_Secondary(_secondaryCurrency);
     }
 
+    
+
     #region Primary Currency
     public void AddCurrency_Primary(int amount)
     {

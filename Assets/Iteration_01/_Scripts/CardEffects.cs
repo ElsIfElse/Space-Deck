@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,5 +22,12 @@ public class CardEffects
         Card randomCard = notEmptySlots[randomIndex].CurrentCardInSlot;
         randomCard.SetcardValue(randomCard.CardValue + amount);
         _cardVfx.CardForgerEffect(randomCard);
+    }
+    public IEnumerator AddValueToCard(Card card,int amount)
+    {
+        card.CardValue += amount;
+        _cardVfx.CardUpgradedEffect(card.gameObject);
+        card.UpdateValueText();
+        yield return new WaitForSeconds(0.5f);
     }
 }

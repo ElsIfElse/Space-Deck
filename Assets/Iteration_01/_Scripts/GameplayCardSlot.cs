@@ -1,5 +1,6 @@
 using System.Diagnostics.Contracts;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -37,8 +38,7 @@ public class GameplayCardSlot : MonoBehaviour,IPointerClickHandler,IPointerEnter
     public void RemoveCardFromSlot()
     {
         if(IsSlotEmpty()) return;
-        // gameObject.transform.position = originalPosition;
-        CurrentCardInSlot.transform.SetParent(null,true);
+        CurrentCardInSlot.transform.SetParent(null,true); 
         CurrentCardInSlot = null;
     }
     
@@ -47,16 +47,17 @@ public class GameplayCardSlot : MonoBehaviour,IPointerClickHandler,IPointerEnter
         if(IsSlotEmpty()) return;
         Card card = CurrentCardInSlot;
         gameObject.transform.position = originalPosition;
-        CurrentCardInSlot.transform.SetParent(null,true);
+        CurrentCardInSlot.transform.SetParent(null,true);  
         CurrentCardInSlot = null;
         Destroy(card.gameObject);
     }
     
     public void OnPointerClick(PointerEventData eventData)
     {
+        if(!ActionManager.Instance.CanInteract) return; 
         if(IsSlotEmpty()) return;
         ResetCardSlotPosition();
-        ActionManager.Instance.OnPlayCard(this);
+        ActionManager.Instance.OnPlayCard(this);    
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -67,9 +68,9 @@ public class GameplayCardSlot : MonoBehaviour,IPointerClickHandler,IPointerEnter
         hoverTween_Rotation?.Kill();
         if(IsSlotEmpty()) return;
         LightTween = SlotLight.DOIntensity(18,0.5f);
-        hoverTween_Upwards = gameObject.transform.DOMoveY(originalPosition.y + HoverMoveDistance,0.2f);
+        if(ActionManager.Instance.CanInteract) hoverTween_Upwards = gameObject.transform.DOMoveY(originalPosition.y + HoverMoveDistance,0.2f);
 
-        hoverTween_Rotation = gameObject.transform.DORotate(new Vector3(0, 15, 0),0.1f).OnComplete(() => 
+        if(!ActionManager.Instance.CanInteract) hoverTween_Rotation = gameObject.transform.DORotate(new Vector3(0, 15, 0),0.1f).OnComplete(() => 
         hoverTween_Rotation = gameObject.transform.DORotate(new Vector3(0, -15, 0),0.1f)).OnComplete(() => 
         hoverTween_Rotation = gameObject.transform.DORotate(originalRotation,0.2f));
 
@@ -93,7 +94,7 @@ public class GameplayCardSlot : MonoBehaviour,IPointerClickHandler,IPointerEnter
         hoverTween_Upwards?.Kill();
         hoverTween_Rotation?.Kill();
         gameObject.transform.rotation = Quaternion.Euler(originalRotation);
-        gameObject.transform.position = originalPosition;
+        gameObject.transform.position = new Vector3(gameObject.transform.position.x,originalPosition.y,gameObject.transform.position.z);
         LightTween = SlotLight.DOIntensity(0,0.5f);
         CardDetailDisplayer.Instance.HideDetailDisplay();
     }
@@ -101,5 +102,10 @@ public class GameplayCardSlot : MonoBehaviour,IPointerClickHandler,IPointerEnter
     public void ParentCardInSlot()
     {
         CurrentCardInSlot.gameObject.transform.SetParent(gameObject.transform,true);
+    }
+
+    public void SaveNewBasePosition()
+    {
+        originalPosition = gameObject.transform.position;
     }
 } 

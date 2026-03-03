@@ -6,6 +6,13 @@ using UnityEngine;
 public class HandManager : MonoBehaviour
 {
     float _cardOffset = 1.5f;
+    public float RearrangeCardsLength
+    {
+        get
+        {
+            return 0.3f / GameStateManager.Instance.GlobalValues.AnimationSpeed;
+        }
+    }
 
 
     public List<GameplayCardSlot> _activeCardSlots = new();
@@ -20,6 +27,15 @@ public class HandManager : MonoBehaviour
         slot.AddCardToSlot(card);
 
         // card.gameObject.transform.SetParent(slot.gameObject.transform,true);
+        return slot;
+    }
+
+    public GameplayCardSlot ActivateSlot()
+    {
+        GameplayCardSlot slot = _emptyCardSlots[0];
+        _emptyCardSlots.RemoveAt(0);
+        _activeCardSlots.Add(slot);
+        slot.gameObject.SetActive(true);
         return slot;
     }
 
@@ -44,13 +60,18 @@ public class HandManager : MonoBehaviour
     public void RemoveAndDestroyAllCardsFromSlots()
     {
         if(_activeCardSlots.Count == 0) return;
-        foreach(GameplayCardSlot slot in _activeCardSlots)
+        
+        // ✅ Iterate over a snapshot copy
+        List<GameplayCardSlot> slotsToRemove = new(_activeCardSlots);
+        
+        foreach(GameplayCardSlot slot in slotsToRemove)
         {
             slot.RemoveAndDestroyCardFromSlot();
             _emptyCardSlots.Add(slot);
-            _activeCardSlots.Remove(slot);
             slot.gameObject.SetActive(false);
         }
+        
+        _activeCardSlots.Clear(); // ✅ Clear the original after iteration
     }
 
     public List<GameplayCardSlot> NotEmptySlots()
@@ -98,8 +119,13 @@ public class HandManager : MonoBehaviour
         {
             for(int i = 0; i < _activeCardSlots.Count; i++)
             {
-                _activeCardSlots[i].transform.DOMoveX(CalculateSlotPosition(i),0.3f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+                _activeCardSlots[i].transform.DOMoveX(CalculateSlotPosition(i),RearrangeCardsLength);
             }
+        }
+
+        foreach(GameplayCardSlot slot in _activeCardSlots)
+        {
+            slot.SaveNewBasePosition();
         }
     }
 

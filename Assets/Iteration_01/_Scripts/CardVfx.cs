@@ -9,6 +9,13 @@ public class CardVfx
 
     Tween _cantDoThatColorTween;
     Tween _cantDoThatScaleTween;
+    public float CantDoThatEffectLength
+    {
+        get
+        {
+            return 0.5f / GameStateManager.Instance.GlobalValues.AnimationSpeed; 
+        }
+    }
 
     public void UseCardEffect(Card card)
     {
@@ -42,11 +49,11 @@ public class CardVfx
             Transform cardTransform = menuSlot._cardGameObject.transform;
             Color originalColor = Color.white;
 
-            _cantDoThatScaleTween = cardTransform.DOScale(0.8f, 0.1f).SetEase(Ease.InOutBounce).OnComplete(() => 
-            _cantDoThatScaleTween = cardTransform.DOScale(1, 0.4f).SetEase(Ease.InOutBounce));
+            _cantDoThatScaleTween = cardTransform.DOScale(0.8f, CantDoThatEffectLength * 0.2f).SetEase(Ease.InOutBounce).OnComplete(() => 
+            _cantDoThatScaleTween = cardTransform.DOScale(1, CantDoThatEffectLength * 0.8f).SetEase(Ease.InOutBounce));
 
-            _cantDoThatColorTween = menuSlot.MeshRenderer.material.DOColor(Color.red, 0.1f).SetEase(Ease.InOutBounce).OnComplete(() => 
-            _cantDoThatColorTween = menuSlot.MeshRenderer.material.DOColor(originalColor, 0.4f).SetEase(Ease.InOutBounce));
+            _cantDoThatColorTween = menuSlot.MeshRenderer.material.DOColor(Color.red, CantDoThatEffectLength * 0.2f).SetEase(Ease.InOutBounce).OnComplete(() => 
+            _cantDoThatColorTween = menuSlot.MeshRenderer.material.DOColor(originalColor, CantDoThatEffectLength * 0.8f).SetEase(Ease.InOutBounce));
         }
         else
         {
