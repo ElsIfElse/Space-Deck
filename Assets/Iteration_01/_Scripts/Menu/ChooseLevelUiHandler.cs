@@ -91,12 +91,14 @@ public class ChooseLevelUiHandler : IUiHandler
 
     void HandleMapButtonClick_01()
     {
+        AudioManager.Instance.Play(AudioType.Click,0,true);
         MenuUiManager.Instance.RunRoutine(SelectButton(_chooseMapButton01));
         _choosenMap = _map01;
         _choosenMapNameText.text = _map01.MapName;
     }
     void HandleMapButtonClick_02()
     {
+        AudioManager.Instance.Play(AudioType.Click,0,true);
         MenuUiManager.Instance.RunRoutine(SelectButton(_chooseMapButton02));
         _choosenMap = _map02;
         _choosenMapNameText.text = _map02.MapName;
@@ -104,12 +106,14 @@ public class ChooseLevelUiHandler : IUiHandler
 
     void HandleChooseMapButtonClick()
     {
+        AudioManager.Instance.Play(AudioType.Click,0,true);
         _choosenMapNameText.text = "";
         SetchooseMapPanelState(true);
     }
 
     void HandleBackToCardsButtonClick()
     {
+        AudioManager.Instance.Play(AudioType.Click,0,true);
         _choosenMapNameText.text = "";
         SetchooseMapPanelState(false);
     }

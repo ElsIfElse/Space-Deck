@@ -37,7 +37,7 @@ public class GamePlayPlayCard : IGameplayState
             yield return _coroutineHelper.StartRoutine(CantDoThatEffect(card)); 
             yield break;
         }
-
+        
         SpendMana(card);
 
         RemoveCardFromSlot(cardSlot);

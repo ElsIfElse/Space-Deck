@@ -81,6 +81,7 @@ public class MenuSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
     public void OnPointerClick(PointerEventData eventData)
     {
         if(IsSlotEmpty()) return;
+        AudioManager.Instance.Play(AudioType.Click,0,true);
         MenuUiManager.Instance.MenuCardUpgradeUiHandler.HandleCardClick(_dataInSlot, this);
         MenuManager.Instance.MenuSlotHandler.HandleSlotClick(this);
     }

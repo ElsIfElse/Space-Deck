@@ -37,6 +37,7 @@ public class SettingsMenuHandler : IUiHandler
 
     void HandleSettingsMenuClick()
     {
+        AudioManager.Instance.Play(AudioType.Click);
         SetState(!_settingsMenuPanel.activeSelf);
     }
 

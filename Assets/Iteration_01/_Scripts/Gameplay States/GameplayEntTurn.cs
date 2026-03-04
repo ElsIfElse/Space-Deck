@@ -30,7 +30,9 @@ public class GameplayEndTurn : IGameplayState
         Card growero = _handManager.IsCardInHand(CardType.Growero);
         if(growero != null)
         {
+            AudioManager.Instance.Play(AudioType.Growero,0,true);
             yield return _coroutineHelper.StartRoutine(_cardEffects.AddValueToCard(growero, _cardEffects.GroweroGrowAmount));
+            yield return new WaitForSeconds(0.5f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
         }
         
         if(IsGameWon())

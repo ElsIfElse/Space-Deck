@@ -82,6 +82,7 @@ public class Forger : BaseCardData
             IsSecondUpgradeUnlocked = true;
             MenuUiManager.Instance.MenuCardUpgradeUiHandler.SetUpgradePanelsData(this,menuSlot);
             OnUpgrade_Post(menuSlot);
+            AudioManager.Instance.Play(AudioType.UpgradeUnlock);
         }
         else
         {

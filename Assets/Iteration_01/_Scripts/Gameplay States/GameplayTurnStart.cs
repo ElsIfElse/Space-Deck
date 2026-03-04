@@ -88,6 +88,7 @@ public class GameplayTurnStart : IGameplayState
     void MoveCardToSlotPosition(Card card, GameplayCardSlot slot)
     {
         CardMover.Instance.MoveCardToSlotPosition(card,slot);
+        AudioManager.Instance.Play(AudioType.Swoosh_Short,0,true);
     }
 
     void SetCanInteract(bool state) => ActionManager.Instance.SetcanInteract(state);

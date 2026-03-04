@@ -10,5 +10,9 @@ public enum AudioType
     Swoosh_Short,
     CardPlayed,
     ManaGained,
-    Score_Map01
+    Score_Map01,
+    Upgrade,
+    UpgradeUnlock,
+    Growero,
+    Click
 }
