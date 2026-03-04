@@ -58,7 +58,7 @@ public class PointUiHandler : IUiHandler
         _pointGainIndicatorTextTween_02 = _pointGainIndicatorText.transform.DOMoveY(_pointGainIndicatorText.transform.position.y + 15f, 1f).SetEase(Ease.InOutSine);
 
         _pointGainIndicatorText.gameObject.SetActive(true);
-        _pointGainIndicatorText.text = "+" + amount.ToString();
+        _pointGainIndicatorText.text = "+" + amount.ToString() + " <sprite name=resource>";
 
         _pointGainIndicatorTextTween_01 = _pointGainIndicatorText.DOFade(1f, 0.1f).SetEase(Ease.InOutSine).OnComplete(() =>
         _pointGainIndicatorTextTween_01 = _pointGainIndicatorText.transform.DOScale(1.2f, 0.4f).SetEase(Ease.InOutSine).OnComplete(() => 
@@ -71,7 +71,7 @@ public class PointUiHandler : IUiHandler
 
     public void UpdatePointCounterText(int currentAmount, int pointsNeededForWin)
     {
-        _pointCounterText.text = $"{currentAmount}/{pointsNeededForWin}";
+        _pointCounterText.text = $"{currentAmount}/{pointsNeededForWin} <sprite name=resource>";
         _fillRepresenter.DOFillAmount((float)currentAmount / pointsNeededForWin,1f);
     }
 }

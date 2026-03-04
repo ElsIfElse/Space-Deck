@@ -11,6 +11,7 @@ public class GameplayTurnStart : IGameplayState
     ManaHandler _manaHandler;
     GameplayEndTurn _gameplayEndTurn;
     DiscardPileManager _discardPileManager;
+    CardEffects _cardEffects;
     bool debug = false;
     
     public void Initialize(GameplayStateDataStruct data)
@@ -21,6 +22,7 @@ public class GameplayTurnStart : IGameplayState
         _manaHandler = data.ManaHandler;
         _gameplayEndTurn = data.GameplayEndTurn;
         _discardPileManager = data.DiscardPileManager;
+        _cardEffects = data.CardEffects;
     }
     public IEnumerator OnTurnStartRoutine()
     {
@@ -30,6 +32,7 @@ public class GameplayTurnStart : IGameplayState
     public IEnumerator DrawCards(int amount = 4)
     {
         SetCanInteract(false);
+        _cardEffects.ResetCardsPlayedThisTurn();
         if(debug) Debug.Log("Drawing cards");
         _manaHandler.ResetMana();
 
@@ -88,7 +91,7 @@ public class GameplayTurnStart : IGameplayState
     void MoveCardToSlotPosition(Card card, GameplayCardSlot slot)
     {
         CardMover.Instance.MoveCardToSlotPosition(card,slot);
-        AudioManager.Instance.Play(AudioType.Swoosh_Short,0,true);
+        AudioManager.Instance.Play(AudioType.CardDealing,0,true);
     }
 
     void SetCanInteract(bool state) => ActionManager.Instance.SetcanInteract(state);
@@ -111,6 +114,7 @@ public class GameplayTurnStart : IGameplayState
         {
             Card card = _deckManager.CardsInDeck[i];
             CardMover.Instance.MoveCardFromDiscardPileToDeck(card, i);
+            AudioManager.Instance.Play(AudioType.CardDealing,0,true);
             yield return new WaitForSeconds(0.1f);
         }
     

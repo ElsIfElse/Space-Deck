@@ -50,6 +50,7 @@ public class GamePlayPlayCard : IGameplayState
             yield return new WaitForSeconds(_delayAfterCardPlay);
         }   
 
+        _cardEffects.IncreaseCardsPlayedThisTurn();
         yield return _coroutineHelper.StartRoutine(card.CardEffect(_cardVfx));
         yield return new WaitForSeconds(_delayAfterCardPlay);
         yield return _coroutineHelper.StartRoutine(MoveCardFromFieldToDiscardPile(card));
@@ -60,6 +61,7 @@ public class GamePlayPlayCard : IGameplayState
     IEnumerator MoveCardFromHandToField(Card card)
     {
         CardMover.Instance.MoveCardFromHandToField(card);
+        AudioManager.Instance.Play(AudioType.Swoosh_Short,0,true);
         yield return new WaitForSeconds(CardMover.Instance.HandToFieldMoveTime);
     }
     IEnumerator CantDoThatEffect(Card card)
@@ -73,6 +75,7 @@ public class GamePlayPlayCard : IGameplayState
     {
         CardMover.Instance.MoveCardFromFieldToDiscardPile(card,_discardPileManager.DeckCount());
         _discardPileManager.AddCardToDiscardedPile(card);
+        AudioManager.Instance.Play(AudioType.Swoosh_Short,0,true);
         yield return new WaitForSeconds(CardMover.Instance.FieldToDiscardPileMoveTime);
         // card.transform.localPosition = Vector3.zero;
     }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
-  m_Name: Currency
+  m_Name: Resource
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_SpriteAsset
   m_Version: 1.1.0
   m_FaceInfo:
@@ -35,44 +35,41 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  m_Material: {fileID: 6825696984618858176}
-  spriteSheet: {fileID: 2800000, guid: 1e1da088ebcbcac4fbaa7679e9bc26a4, type: 3}
+  m_Material: {fileID: 247368257454505996}
+  spriteSheet: {fileID: 2800000, guid: 9ff74d4835ece6342b3718816d910e30, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
     m_Scale: 1
-    m_Name: Currency
+    m_Name: resource
   m_GlyphTable:
   - m_Index: 0
     m_Metrics:
-      m_Width: 2048
-      m_Height: 2048
-      m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 1744.8
-      m_HorizontalAdvance: 1819
+      m_Width: 800
+      m_Height: 754
+      m_HorizontalBearingX: -61.679
+      m_HorizontalBearingY: 657.5
+      m_HorizontalAdvance: 800
     m_GlyphRect:
       m_X: 0
       m_Y: 0
-      m_Width: 2048
-      m_Height: 2048
-    m_Scale: 1.4
+      m_Width: 800
+      m_Height: 754
+    m_Scale: 1.3
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-    sprite: {fileID: 21300000, guid: 1e1da088ebcbcac4fbaa7679e9bc26a4, type: 3}
+    sprite: {fileID: 21300000, guid: 9ff74d4835ece6342b3718816d910e30, type: 3}
   spriteInfoList: []
-  fallbackSpriteAssets:
-  - {fileID: 11400000, guid: 7b9dfd746060b284aa2ad887c3e6c99a, type: 2}
-  - {fileID: 11400000, guid: f8a81a56253401b41a42233e3b62dfa0, type: 2}
-  - {fileID: 11400000, guid: a5ae9f7b24a9f2f438e6d606c0654cc7, type: 2}
---- !u!21 &6825696984618858176
+  fallbackSpriteAssets: []
+--- !u!21 &247368257454505996
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Currency Material
+  m_Name: resource Material
   m_Shader: {fileID: 4800000, guid: cf81c85f95fe47e1a27f6ae460cf182c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -89,7 +86,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 1e1da088ebcbcac4fbaa7679e9bc26a4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9ff74d4835ece6342b3718816d910e30, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []

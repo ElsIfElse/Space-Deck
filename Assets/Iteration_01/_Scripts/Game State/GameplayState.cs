@@ -1,3 +1,6 @@
+using System.Collections;
+using UnityEngine;
+
 public class GameplayState : GameState
 {
     public override void OnEnter()

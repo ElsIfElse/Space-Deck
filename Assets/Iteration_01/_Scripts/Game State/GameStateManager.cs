@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +19,8 @@ public class GameStateManager : MonoBehaviour
 
     GameplayState _gameplayState;
     MenuState _menuState;
-
+    public TransitionHandler TransitionHandler;
+    public TransitionHandlerData TransitionHandlerData;
     public GlobalValues GlobalValues;
     public bool IsCheatOn = true;
     
@@ -77,6 +79,7 @@ public class GameStateManager : MonoBehaviour
     void CreateSubHandlers()
     {
         GlobalValues = new();
+        // TransitionHandler = new(TransitionHandlerData);
     }
     void AddStatesToDictionary()
     {
@@ -84,8 +87,8 @@ public class GameStateManager : MonoBehaviour
         _states.Add(GameStateEnum.Menu, _menuState);
     }
 
-    void OnGUI()
-    {
-        GUI.Label(new Rect(0,0,200,50),"Animation Speed: " + GlobalValues.AnimationSpeed);
-    }
+    // void OnGUI()
+    // {
+    //     GUI.Label(new Rect(0,0,200,50),"Animation Speed: " + GlobalValues.AnimationSpeed);
+    // }
 }

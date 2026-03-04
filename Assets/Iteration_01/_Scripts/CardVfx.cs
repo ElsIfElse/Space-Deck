@@ -87,5 +87,21 @@ public class CardVfx
         _upgradeRotateTween = cardTransform.DORotate(new Vector3(0, -15, 0), 0.1f).SetEase(Ease.InOutBounce).OnComplete(() => 
         _upgradeRotateTween = cardTransform.DORotate(originalRotation, 0.1f).SetEase(Ease.InOutBounce)));
     }
+    public void GroweroValueGainEffect(GameObject card)
+    {
+        _upgradeScaleTween?.Kill();
+        _upgradeRotateTween?.Kill();
+
+        Transform cardTransform = card.transform;
+        Vector3 originalScale = card.transform.localScale;
+        Vector3 originalRotation = card.transform.rotation.eulerAngles;
+
+        _upgradeScaleTween = cardTransform.DOScale(card.transform.localScale * 1.3f, 0.4f).SetEase(Ease.InOutBounce).OnComplete(() => 
+        _upgradeScaleTween = cardTransform.DOScale(originalScale, 0.2f).SetEase(Ease.InOutBounce));
+
+        _upgradeRotateTween = cardTransform.DORotate(new Vector3(0, 30, 0), 0.2f).SetEase(Ease.InOutBounce).OnComplete(() => 
+        _upgradeRotateTween = cardTransform.DORotate(new Vector3(0, -30, 0), 0.2f).SetEase(Ease.InOutBounce).OnComplete(() => 
+        _upgradeRotateTween = cardTransform.DORotate(originalRotation, 0.1f).SetEase(Ease.InOutBounce)));
+    }
 
 }

@@ -136,7 +136,7 @@ public class BaseCardData : ScriptableObject
     // Plays card animation
     public void GainValueSequence(CardVfx cardVfx, Card card)
     {
-        AudioManager.Instance.Play(AudioType.CardEffect);
+        AudioManager.Instance.Play(AudioType.CardEffect,0,true);
         PointCounterManager.Instance.AddPoints(card.CardValue);
         cardVfx.UseCardEffect(card);
     }

@@ -1,8 +1,9 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class GameState
 {
-    GameStateManager _gameStateManager;
+    public GameStateManager _gameStateManager;
     public abstract void OnEnter();
     public abstract void OnExit();
     public abstract void Tick();

@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class TurnUiHandler : IUiHandler
 {
     public TextMeshProUGUI _turnCounterText;
+    public TextMeshProUGUI _cardsPlayedThisTurnCounterText;
     Button _endTurnButton;
     Image _turnPanelBg;
 
     public TurnUiHandler(TurnUiHandlerData data)
     {
         _turnCounterText = data.TurnCounterText;
+        _cardsPlayedThisTurnCounterText = data.CardsPlayedThisTurnCounterText;
         _endTurnButton = data.EndTurnButton;
         _turnPanelBg = data.TurnPanelBg;
 
@@ -22,6 +24,10 @@ public class TurnUiHandler : IUiHandler
     {
         _turnCounterText.text = $"Current Turn: {currentTurn}/{maxTurn}";
     }
+    public void UpdateCardsPlayedThisTurnCounter(int cardsPlayedThisTurn)
+    {
+        _cardsPlayedThisTurnCounterText.text = $"Cards played this turn: {cardsPlayedThisTurn}";
+    }
 
     public void SetState(bool state)
     {
@@ -30,6 +36,7 @@ public class TurnUiHandler : IUiHandler
             _turnCounterText.gameObject.SetActive(true);
             _endTurnButton.gameObject.SetActive(true);
             _turnPanelBg.gameObject.SetActive(true);
+            _cardsPlayedThisTurnCounterText.gameObject.SetActive(true);
             
         }
         else
@@ -37,6 +44,7 @@ public class TurnUiHandler : IUiHandler
             _turnCounterText.gameObject.SetActive(false);
             _endTurnButton.gameObject.SetActive(false);
             _turnPanelBg.gameObject.SetActive(false);
+            _cardsPlayedThisTurnCounterText.gameObject.SetActive(false);
         }
     }
 }
@@ -45,6 +53,7 @@ public class TurnUiHandler : IUiHandler
 public struct TurnUiHandlerData
 {
     public TextMeshProUGUI TurnCounterText;
+    public TextMeshProUGUI CardsPlayedThisTurnCounterText;
     public Button EndTurnButton;
     public Image TurnPanelBg;
 }
