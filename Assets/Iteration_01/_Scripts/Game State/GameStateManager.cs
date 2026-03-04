@@ -47,8 +47,8 @@ public class GameStateManager : MonoBehaviour
         AddStatesToDictionary();
         InitializeStates();
 
-        _gameplayState.OnExit();
-        ChangeState(GameStateEnum.Menu);
+        StartCoroutine(_gameplayState.OnExit());
+        StartCoroutine(ChangeState(GameStateEnum.Menu));
     }
     void Initialize_SingletonManagers()
     {
@@ -58,9 +58,12 @@ public class GameStateManager : MonoBehaviour
         MenuManager.Instance.Initialize();
         AudioManager.Instance.Initialize();
     }
-    public void ChangeState(GameStateEnum newState)
+    public IEnumerator ChangeState(GameStateEnum newState)
     {
-        _currentState?.OnExit();
+        if(_currentState != null)
+        {
+            yield return StartCoroutine(_currentState.OnExit());
+        }
         _currentState = _states[newState];
         _currentState.OnEnter();
     }
@@ -79,7 +82,7 @@ public class GameStateManager : MonoBehaviour
     void CreateSubHandlers()
     {
         GlobalValues = new();
-        // TransitionHandler = new(TransitionHandlerData);
+        TransitionHandler = new(TransitionHandlerData);
     }
     void AddStatesToDictionary()
     {

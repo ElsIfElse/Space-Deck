@@ -10,8 +10,10 @@ public class MenuState : GameState
         MenuUiManager.Instance.ShowMenuUi();
     }
 
-    public override void OnExit()
+    public override IEnumerator OnExit()
     {
+        _gameStateManager.StartCoroutine(_gameStateManager.TransitionHandler.OnTransition());
+        yield return new WaitForSeconds(_gameStateManager.TransitionHandler.TransitionTime);
         MenuManager.Instance.MenuSlotHandler.HideMenuSlots();
         MenuUiManager.Instance.HideMenuUi();
     }

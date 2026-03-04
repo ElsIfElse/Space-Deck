@@ -72,14 +72,12 @@ public class GameplayEndTurn : IGameplayState
     }
     IEnumerator OnGameWon()
     {
-        GameStateManager.Instance.ChangeState(GameStateEnum.Menu);
-        yield return null;
+        yield return _coroutineHelper.StartRoutine(GameStateManager.Instance.ChangeState(GameStateEnum.Menu));
     }
     IEnumerator OnGameLost()
     {
         MenuManager.Instance.CurrencyHandler.AddCurrency_Primary(PointCounterManager.Instance.CurrentPoints / 5);
-        GameStateManager.Instance.ChangeState(GameStateEnum.Menu);
-        yield return null;
+        yield return _coroutineHelper.StartRoutine(GameStateManager.Instance.ChangeState(GameStateEnum.Menu));
     }
     void MoveCardToSlotPosition(Card card, GameplayCardSlot slot) => CardMover.Instance.MoveCardToSlotPosition(card,slot);
 }

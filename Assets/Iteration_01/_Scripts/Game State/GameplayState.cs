@@ -9,8 +9,11 @@ public class GameplayState : GameState
         ActionManager.Instance.StartGame();
     }
 
-    public override void OnExit()
+    public override IEnumerator OnExit()
     {
+        Debug.Log("Exiting Gameplay State");
+        _gameStateManager.StartCoroutine(_gameStateManager.TransitionHandler.OnTransition());
+        yield return new WaitForSeconds(_gameStateManager.TransitionHandler.TransitionTime);
         GameplayUiManager.Instance.HideGameplayUi();
         ActionManager.Instance.RemoveAllActiveCardsFromScene();
     }

@@ -4,23 +4,39 @@ using DG.Tweening;
 using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
+using VolFx;
 
 public class TransitionHandler
 {
     Image _blackFadeImg;
-    float _blackFadeTime = 0.5f;
+    float _blackFadeTime = 0.3f;
+    float _cameraEffectTime = 0.3f;
+    public float TransitionTime
+    {
+        get
+        {
+            return _blackFadeTime + _cameraEffectTime;
+        }
+    } 
+
     CinemachineCamera _camera;
-    float _cameraEffectTime = 0.5f;
-    public float TransitionTime = 1f; 
+    CinemachineVolumeSettings _volume;
+    PixelationVol _pixelation;
+
+    
 
     public TransitionHandler(TransitionHandlerData data)
     {
         _blackFadeImg = data.BlackFadeImg;
         _camera = data.Camera;
+        _volume = _camera.gameObject.GetComponent<CinemachineVolumeSettings>();
+        GetPixelation();
     }
     public IEnumerator OnTransition()
     {
+        Debug.Log("Transitioning..");
         UseCameraEffect(true);
         yield return new WaitForSeconds(_cameraEffectTime / 2);
 
@@ -31,19 +47,32 @@ public class TransitionHandler
         yield return new WaitForSeconds(_cameraEffectTime / 2);
 
         UseCameraEffect(false);
+        Debug.Log("Transition done!");
     }
 
     void UseCameraEffect(bool effectState)
     {
         if(effectState)
         {
-            // Turn on effect
+            DOTween.To(()=> _pixelation.m_Scale.value, x => _pixelation.m_Scale.value = x, 0.5f, _cameraEffectTime);
         }
         else
         {
-            // Turn off effect
+            DOTween.To(()=> _pixelation.m_Scale.value, x => _pixelation.m_Scale.value = x, 1, _cameraEffectTime);
         }
     }   
+
+    void GetPixelation()
+    {
+        if (_volume.Profile.TryGet<PixelationVol>(out _pixelation))
+        {
+            
+        }
+        else 
+        {
+            Debug.Log("Pixelation not found");
+        }
+    }
 }
 
     [Serializable]

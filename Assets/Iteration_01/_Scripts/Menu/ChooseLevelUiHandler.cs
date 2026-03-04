@@ -28,10 +28,10 @@ public class ChooseLevelUiHandler : IUiHandler
     List<Button> _mapButtons = new();
 
     GameObject _chooseMapPanel;
-
+    MenuUiManager _coroutineHelper;
     MapData _choosenMap; public MapData ChoosenMap => _choosenMap;
 
-    public ChooseLevelUiHandler(ChooseLevelHandlerData data)
+    public ChooseLevelUiHandler(ChooseLevelHandlerData data, MenuUiManager coroutineHelper)
     {
         _map01 = data.Map01; 
         _map02 = data.Map02; 
@@ -41,7 +41,7 @@ public class ChooseLevelUiHandler : IUiHandler
         _chooseMapButton02 = data.ChooseMapButton02;
         _backToCardsButton = data.BackToCardsButton;
         _toMapChoiceButton = data.ToMapChoiceButton;
-
+        _coroutineHelper = coroutineHelper;
         _chooseMapPanel = data.ChooseMapPanel;
 
         _choosenMapNameText = data.ChoosenMapNameText;
@@ -70,7 +70,7 @@ public class ChooseLevelUiHandler : IUiHandler
             return;
         }
 
-        GameStateManager.Instance.ChangeState(GameStateEnum.GamePlay);
+        _coroutineHelper.StartRoutine(GameStateManager.Instance.ChangeState(GameStateEnum.GamePlay));
     }
 
     public void SetState(bool state)
@@ -92,14 +92,14 @@ public class ChooseLevelUiHandler : IUiHandler
     void HandleMapButtonClick_01()
     {
         AudioManager.Instance.Play(AudioType.Click,0,true);
-        MenuUiManager.Instance.RunRoutine(SelectButton(_chooseMapButton01));
+        MenuUiManager.Instance.StartRoutine(SelectButton(_chooseMapButton01));
         _choosenMap = _map01;
         _choosenMapNameText.text = _map01.MapName;
     }
     void HandleMapButtonClick_02()
     {
         AudioManager.Instance.Play(AudioType.Click,0,true);
-        MenuUiManager.Instance.RunRoutine(SelectButton(_chooseMapButton02));
+        MenuUiManager.Instance.StartRoutine(SelectButton(_chooseMapButton02));
         _choosenMap = _map02;
         _choosenMapNameText.text = _map02.MapName;
     }
@@ -166,6 +166,5 @@ public struct ChooseLevelHandlerData
     public MapData Map02; 
 
     public TextMeshProUGUI ChoosenMapNameText;
-
     public GameObject ChooseMapPanel;
 }

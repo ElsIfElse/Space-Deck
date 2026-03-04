@@ -52,7 +52,7 @@ public class MenuUiManager : MonoBehaviour {
         MenuCardUpgradeUiHandler = new(MenuCardUpgradeUiHandlerData);
         MenuCurrencyUiHandler = new(MenuCurrencyUiData);
         GameStartUiHandler = new(GameStartUiHandlerData);
-        ChooseLevelUiHandler = new(ChooseLevelHandlerData);
+        ChooseLevelUiHandler = new(ChooseLevelHandlerData, this);
         SettingsMenuHandler = new(SettingsMenuHandlerData);
         
 
@@ -75,7 +75,7 @@ public class MenuUiManager : MonoBehaviour {
         foreach(IUiHandler handler in _subhandlers) handler.SetState(true);
     }
 
-    public void RunRoutine(IEnumerator routine)
+    public void StartRoutine(IEnumerator routine)
     {
         if(routine == null) return;
         StartCoroutine(routine);
