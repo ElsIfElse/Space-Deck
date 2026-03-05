@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,12 +23,19 @@ public class MenuSlotHandler
         _selectedSlotLight = data.SelectedSlotLight;
     }
 
-    void SetMenuSlots()
+    /// <summary>
+    /// Sets the menu view. Choose between deck view and locked cards view. True = Deck view, False = Locked cards view.
+    /// </summary>
+    /// <param name="deckView">Set to true for deck view and false for locked cards view.</param>
+    public void SetMenuSlots(bool deckView)
     {
+        List<BaseCardData> cards = deckView ? PlayerDeckHandler.Instance.RuntimeCards : PlayerDeckHandler.Instance.RuntimeLockedCards;
+
         int slotIndex = 0;
 
-        foreach(BaseCardData baseCardData in PlayerDeckHandler.Instance.RuntimeCards)
+        foreach(BaseCardData baseCardData in cards)
         {
+            _menuSlots[slotIndex].gameObject.SetActive(true);
             _menuSlots[slotIndex].InitializeMenuSlot(baseCardData,_cardEffectDescriptions);
             slotIndex++;
         }
@@ -40,14 +48,23 @@ public class MenuSlotHandler
         _areSlotsInitialized = true;
     }
 
+    public void EmptyMenuSlots()
+    {
+        foreach(MenuSlot slot in _menuSlots) slot.EmptySlot();
+    }
+
     public void HideMenuSlots()
     {
         foreach(MenuSlot slot in _menuSlots) slot.gameObject.SetActive(false);
     }
 
-    public void ShowMenuSlots()
+    /// <summary>
+    /// Sets the menu view. Choose between deck view and locked cards view. True = Deck view, False = Locked cards view.
+    /// </summary>
+    /// <param name="deckView"> Set to true for deck view and false for locked cards view.</param>
+    public void ShowMenuSlots(bool deckView)
     {
-        if(!_areSlotsInitialized) SetMenuSlots();
+        if(!_areSlotsInitialized) SetMenuSlots(deckView);
 
         foreach(MenuSlot slot in _menuSlots)
         {
@@ -70,6 +87,8 @@ public class MenuSlotHandler
         _lightTween = _selectedSlotLight.DOIntensity(0f,0.3f);
     }
 }
+
+
 
 [Serializable]
 public struct MenuSlotHandlerData

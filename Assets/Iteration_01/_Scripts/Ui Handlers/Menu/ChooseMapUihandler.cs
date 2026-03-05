@@ -11,8 +11,12 @@ public class ChooseMapUihandler : IUiHandler
     private Button _startGameButton;
     private Button _backFromChoosingButton;
 
-    public ChooseMapUihandler(ChooseMapUiHandlerData chooseMapUiHandlerData)
+    ViewChangeHandler _viewChangeHandler;
+
+    public ChooseMapUihandler(ChooseMapUiHandlerData chooseMapUiHandlerData, ViewChangeHandler viewChangeHandler)
     {
+        _viewChangeHandler = viewChangeHandler;
+        
         _mapChooseingPanel = chooseMapUiHandlerData.MapChooseingPanel;
         _mapBtn_01 = chooseMapUiHandlerData.MapBtn_01;
         _mapBtn_02 = chooseMapUiHandlerData.MapBtn_02;

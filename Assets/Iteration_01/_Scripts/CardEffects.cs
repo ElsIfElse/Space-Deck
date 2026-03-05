@@ -24,6 +24,19 @@ public class CardEffects
         randomCard.SetcardValue(randomCard.CardValue + amount);
         _cardVfx.CardForgerEffect(randomCard);
     }
+    public IEnumerator StrenghtenAllCardsInHand(int amount)
+    {
+        List<GameplayCardSlot> notemptySlots = _handManager.NotEmptySlots();
+
+        foreach(GameplayCardSlot slot in notemptySlots)
+        {
+            Card card = slot.CurrentCardInSlot;
+            card.SetcardValue(card.CardValue + amount);
+            _cardVfx.CardForgerEffect(card);
+            yield return new WaitForSeconds(0.1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+        }
+
+    }
     public IEnumerator AddValueToCard(Card card,int amount)
     {
         card.CardValue += amount;

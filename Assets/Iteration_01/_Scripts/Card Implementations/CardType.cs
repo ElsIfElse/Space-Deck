@@ -8,5 +8,6 @@ public enum CardType
     Duppo,
     Gaino,
     Playedo,
-    Forgero
+    Forgero,
+    OlForgie
 }

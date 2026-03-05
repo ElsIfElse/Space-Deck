@@ -19,6 +19,7 @@ public class BaseCardData : ScriptableObject
     public bool CanUseUpgrade_01 = true;
     public bool CanUseUpgrade_02 = true;
 
+
     // The base card effect during gameplay when the card is played
     public virtual IEnumerator CardEffect(CardVfx cardVfx, Card card = null)
     {

@@ -28,6 +28,7 @@ public class MenuSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
         _dataInSlot.EffectDescription_01 = _cardEffectDescriptions.EffectDescriptions[baseCardData.CardType].Effect_01_Description;
         _dataInSlot.EffectDescription_02 = _cardEffectDescriptions.EffectDescriptions[baseCardData.CardType].Effect_02_Description; 
         _cardVisualSprite = _dataInSlot.CardFront;
+
         SetCardVisual(_cardVisualSprite);
 
         CardCostText.text = _dataInSlot.ManaCost.ToString();
@@ -36,6 +37,12 @@ public class MenuSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
         baseCardData.SetCardUpgrades(this);
 
         _originalRotation = transform.rotation.eulerAngles;
+    }
+
+    public void EmptySlot()
+    {
+        _dataInSlot = null;
+        gameObject.SetActive(false);
     }
 
     void SetCardVisual(Sprite sprite) => MeshRenderer.material.SetTexture("_BaseMap",sprite.texture);

@@ -36,6 +36,9 @@ public class MenuUiManager : MonoBehaviour {
     public SettingsMenuHandler SettingsMenuHandler;
     public SettingsMenuHandlerData SettingsMenuHandlerData;
 
+    public ViewChangeHandler ViewChangeHandler;
+    public ViewChangeHandlerData ViewChangeHandlerData;
+
 
     List<IUiHandler> _subhandlers = new();
 
@@ -52,14 +55,16 @@ public class MenuUiManager : MonoBehaviour {
         MenuCardUpgradeUiHandler = new(MenuCardUpgradeUiHandlerData);
         MenuCurrencyUiHandler = new(MenuCurrencyUiData);
         GameStartUiHandler = new(GameStartUiHandlerData);
-        ChooseLevelUiHandler = new(ChooseLevelHandlerData, this);
         SettingsMenuHandler = new(SettingsMenuHandlerData);
+        ViewChangeHandler = new(ViewChangeHandlerData, MenuManager.Instance.MenuSlotHandler,MenuCardUpgradeUiHandler);
+        ChooseLevelUiHandler = new(ChooseLevelHandlerData, this,ViewChangeHandler,MenuCardUpgradeUiHandler);
         
 
         _subhandlers.Add(MenuCurrencyUiHandler);
         _subhandlers.Add(GameStartUiHandler);
         _subhandlers.Add(MenuStarMover);
         _subhandlers.Add(ChooseLevelUiHandler);
+        _subhandlers.Add(ViewChangeHandler);
     }
 
     public void HideMenuUi()

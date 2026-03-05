@@ -41,7 +41,7 @@ public class TransitionHandler
         yield return new WaitForSeconds(_cameraEffectTime / 2);
 
         _blackFadeImg.DOFade(1,_blackFadeTime);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(_blackFadeTime);
 
         _blackFadeImg.DOFade(0,_blackFadeTime);
         yield return new WaitForSeconds(_cameraEffectTime / 2);

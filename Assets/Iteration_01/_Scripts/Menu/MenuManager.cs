@@ -35,4 +35,10 @@ public class MenuManager : MonoBehaviour
         MenuSlotHandler = new(MenuSlotHandlerData, CardEffectDescriptions);
         CurrencyHandler = new();
     }
+
+    // private void OnGUI() 
+    // {
+    //     if(GUI.Button(new Rect(0,0,100,75), "Deck")) MenuSlotHandler.SetMenuSlots(true);   
+    //     if(GUI.Button(new Rect(100,0,100,75), "Locked Cards")) MenuSlotHandler.SetMenuSlots(false);   
+    // }
 }

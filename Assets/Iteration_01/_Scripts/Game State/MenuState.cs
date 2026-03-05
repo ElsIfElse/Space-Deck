@@ -6,7 +6,7 @@ public class MenuState : GameState
     public override void OnEnter()
     {
         AudioManager.Instance.PlayScore(AudioType.Score_01) ;
-        MenuManager.Instance.MenuSlotHandler.ShowMenuSlots();
+        MenuManager.Instance.MenuSlotHandler.ShowMenuSlots(true);
         MenuUiManager.Instance.ShowMenuUi();
     }
 

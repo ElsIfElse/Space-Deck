@@ -32,6 +32,12 @@ public class MenuCardUpgradeUiHandler : IUiHandler
 
     public void SetUpgradePanelsData(BaseCardData data, MenuSlot slot)
     {
+        if(data is ILockedCard && (data as ILockedCard).IsCardLocked == true)
+        {
+            HandleLockedCard(data as ILockedCard,slot);
+            return;
+        }
+
         if(data.CardUpgrades.Count == 0)
         {
             SetState(false);
@@ -52,8 +58,12 @@ public class MenuCardUpgradeUiHandler : IUiHandler
         }
     }
 
-
-
+    void HandleLockedCard(ILockedCard lockedCard, MenuSlot slot)
+    {
+        _upgradePanels[0].SetState(true);
+        _upgradePanels[0].SetPanelData_Unlock(lockedCard, slot);
+        return;   
+    }
 }
 
 [Serializable]

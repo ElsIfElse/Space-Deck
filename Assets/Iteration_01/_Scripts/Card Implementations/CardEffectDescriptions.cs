@@ -22,6 +22,7 @@ public class CardEffectDescriptions
             {CardType.Playedo,new()},
             {CardType.Duppo,new()},
             {CardType.Forgero,new()},
+            {CardType.OlForgie,new()},
         };
 
         SetBaseDescriptions();
@@ -36,6 +37,7 @@ public class CardEffectDescriptions
         EffectDescription_Discardo(2);
         EffectDescription_Morcardel();
         EffectDescription_Gaino(1);
+        EffectDescription_OlForgie(1);
     }
 
     public string EffectDescription_Forgero(int valueIncrease,int descriptionIndex)
@@ -79,7 +81,11 @@ public class CardEffectDescriptions
         EffectDescriptions[CardType.Gaino].Effect_01_Description = $"Gain {manaGainCount} <sprite name=oxygen>.";
         return EffectDescriptions[CardType.Gaino].Effect_01_Description;
     }
-
+    public string EffectDescription_OlForgie(int upgradeValue)
+    {
+        EffectDescriptions[CardType.OlForgie].Effect_01_Description = $"Upgrade all cards value in hand by <b>{upgradeValue}</b>.";
+        return EffectDescriptions[CardType.OlForgie].Effect_01_Description; 
+    }
 }
 
 public class CardDescription

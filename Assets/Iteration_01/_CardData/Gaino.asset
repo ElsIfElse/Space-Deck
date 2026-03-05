@@ -31,3 +31,5 @@ MonoBehaviour:
   CanUseUpgrade_01: 1
   CanUseUpgrade_02: 1
   ManaToGain: 1
+  _isCardLocked: 1
+  _unlockCost: 2

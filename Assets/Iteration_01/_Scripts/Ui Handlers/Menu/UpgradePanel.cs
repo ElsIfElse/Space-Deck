@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,11 +21,40 @@ public class UpgradePanel : MonoBehaviour,IUiHandler
         _upgradeButton.onClick.RemoveAllListeners();
         _upgradeButton.onClick.AddListener(()=> OnUpgradeButtonClick(upgradeData, slot));
     }
+    public void SetPanelData_Unlock(ILockedCard upgradeData, MenuSlot menuSlot)
+    {
+        _upgradeNameText.text = "Add card to deck."; 
+        _upgradeCostText.text = "<sprite name=stone_02>" + upgradeData.UnlockCost.ToString();
+        _upgradeDescriptionText.text = "";
+
+        _upgradeButton.onClick.RemoveAllListeners();
+        _upgradeButton.onClick.AddListener(()=>
+        {
+            if(MenuManager.Instance.CurrencyHandler.CurrencyCount_Secondary() >= upgradeData.UnlockCost)
+            {
+                OnUnlockButtonClick(upgradeData);
+                AudioManager.Instance.Play(AudioType.ForgerBell);
+            }
+            else
+            {
+                AudioManager.Instance.Play(AudioType.CantDoThat);
+                ActionManager.Instance.CardVfx.CantDoThatEffect(null,menuSlot);
+            }
+        });
+    }
 
     void OnUpgradeButtonClick(Upgrade upgradeData, MenuSlot slot)
     {
         upgradeData.UpgradeEffect();
         slot.UpdateSlotValues();
+    }
+
+    void OnUnlockButtonClick(ILockedCard upgradeData)
+    {
+       PlayerDeckHandler.Instance.MoveCardFromLockedToDeck(upgradeData as BaseCardData); 
+       MenuManager.Instance.MenuSlotHandler.SetMenuSlots(false);
+       MenuUiManager.Instance.MenuCardUpgradeUiHandler.SetState(false);
+       upgradeData.IsCardLocked = false;
     }
 
     public void SetState(bool state)

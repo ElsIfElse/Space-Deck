@@ -30,8 +30,10 @@ public class ChooseLevelUiHandler : IUiHandler
     GameObject _chooseMapPanel;
     MenuUiManager _coroutineHelper;
     MapData _choosenMap; public MapData ChoosenMap => _choosenMap;
+    ViewChangeHandler _viewChangeHandler;
+    MenuCardUpgradeUiHandler _menuCardUpgradeUiHandler;
 
-    public ChooseLevelUiHandler(ChooseLevelHandlerData data, MenuUiManager coroutineHelper)
+    public ChooseLevelUiHandler(ChooseLevelHandlerData data, MenuUiManager coroutineHelper, ViewChangeHandler viewChangeHandler, MenuCardUpgradeUiHandler menuCardUpgradeUiHandler)
     {
         _map01 = data.Map01; 
         _map02 = data.Map02; 
@@ -41,7 +43,12 @@ public class ChooseLevelUiHandler : IUiHandler
         _chooseMapButton02 = data.ChooseMapButton02;
         _backToCardsButton = data.BackToCardsButton;
         _toMapChoiceButton = data.ToMapChoiceButton;
+
         _coroutineHelper = coroutineHelper;
+        _viewChangeHandler = viewChangeHandler;
+        _menuCardUpgradeUiHandler = menuCardUpgradeUiHandler;
+
+
         _chooseMapPanel = data.ChooseMapPanel;
 
         _choosenMapNameText = data.ChoosenMapNameText;
@@ -109,6 +116,7 @@ public class ChooseLevelUiHandler : IUiHandler
         AudioManager.Instance.Play(AudioType.Click,0,true);
         _choosenMapNameText.text = "";
         SetchooseMapPanelState(true);
+        _viewChangeHandler.SetState(false);
     }
 
     void HandleBackToCardsButtonClick()
@@ -116,6 +124,7 @@ public class ChooseLevelUiHandler : IUiHandler
         AudioManager.Instance.Play(AudioType.Click,0,true);
         _choosenMapNameText.text = "";
         SetchooseMapPanelState(false);
+        _viewChangeHandler.SetState(true);
     }
 
     public void SetchooseMapPanelState(bool state)
@@ -125,12 +134,14 @@ public class ChooseLevelUiHandler : IUiHandler
         if(state)
         {
             _chooseMapPanel.SetActive(true);
+            _menuCardUpgradeUiHandler.SetState(false);
             MenuManager.Instance.MenuSlotHandler.HideMenuSlots();
         }
         else
         {
             _chooseMapPanel.SetActive(false);
-            MenuManager.Instance.MenuSlotHandler.ShowMenuSlots();
+            MenuManager.Instance.MenuSlotHandler.HideMenuSlots();
+            MenuManager.Instance.MenuSlotHandler.SetMenuSlots(true);
         }
     }
 
