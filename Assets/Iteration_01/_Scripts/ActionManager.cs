@@ -103,9 +103,9 @@ public class ActionManager : MonoBehaviour,ICoroutineHelper
         HandManager.RemoveAndDestroyAllCardsFromSlots();
     }
 
-    public void DrawCard(int amountOfCardsToBeDrawn)
+    public void DrawCard(int amountOfCardsToBeDrawn,bool isTurnStart = true)
     {
-        StartCoroutine(GameplayTurnStart.DrawCards(amountOfCardsToBeDrawn));
+        StartCoroutine(GameplayTurnStart.DrawCards(isTurnStart,amountOfCardsToBeDrawn));
     }
     
     // /// <summary>

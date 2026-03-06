@@ -6,13 +6,14 @@ public class OlForgie : BaseCardData, ILockedCard
 {
     public bool isCardLocked {get => IsCardLocked; set => IsCardLocked = value;}
     [SerializeField] private int _unlockCost; public int UnlockCost { get => _unlockCost; set => _unlockCost = value; }
-    public int ValueUpgradeAmount;
+    public int ValueUpgradeAmount = 1;
 
     public override IEnumerator CardEffect(CardVfx cardVfx, Card card = null)
     {
         GainValueSequence(cardVfx,card);
         yield return new WaitForSeconds(1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
-        yield return ActionManager.Instance.StartRoutine(ActionManager.Instance.CardEffects.StrenghtenAllCardsInHand(ValueUpgradeAmount));
+
+        yield return ActionManager.Instance.CardEffects.StrenghtenAllCardsInHand(ValueUpgradeAmount);
     }
 
     public override void SetDescription_Effect_01()

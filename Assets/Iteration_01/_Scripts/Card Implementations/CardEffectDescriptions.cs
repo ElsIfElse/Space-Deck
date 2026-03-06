@@ -24,7 +24,6 @@ public class CardEffectDescriptions
             {CardType.Forgero,new()},
             {CardType.OlForgie,new()},
             {CardType.Handeroo,new()}
-
         };
 
         SetBaseDescriptions();
@@ -35,8 +34,8 @@ public class CardEffectDescriptions
         EffectDescription_Forgero(1,1);
         EffectDescription_Growero(2);
         EffectDescription_Duppo();
-        EffectDescription_Playedo(2);
-        EffectDescription_Discardo(2);
+        EffectDescription_Playedo(1);
+        EffectDescription_Discardo(1);
         EffectDescription_Morcardel();
         EffectDescription_Gaino(1);
         EffectDescription_OlForgie(1);

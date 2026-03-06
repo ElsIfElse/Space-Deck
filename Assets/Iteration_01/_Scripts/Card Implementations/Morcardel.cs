@@ -11,7 +11,7 @@ public class Morcardel : BaseCardData
         GainValueSequence(cardVfx,card);
         yield return new WaitForSeconds(1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
 
-        ActionManager.Instance.DrawCard(amountOfCardsToBeDrawn);
+        ActionManager.Instance.DrawCard(amountOfCardsToBeDrawn,false);
     }
 
     public override void SetDescription_Effect_01()

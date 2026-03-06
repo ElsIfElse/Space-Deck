@@ -54,7 +54,7 @@ public class HandManager : MonoBehaviour
     }
 
     public void RemoveAndDestroyAllCardsFromSlots()
-{
+    {
         if(_activeCardSlots.Count == 0) return;
         
         List<GameplayCardSlot> slotsToRemove = new(_activeCardSlots);

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Growero
   m_EditorClassIdentifier: Assembly-CSharp::Growero
   CardName: Growero
-  EffectDescription_01: 
+  EffectDescription_01: If this card is in your hand at the end of the turn it gains
+    <b>2 value.</b>
   EffectDescription_02: 
   ManaCost: 2
   CardValue: 3
@@ -31,3 +32,5 @@ MonoBehaviour:
   CardType: 4
   CanUseUpgrade_01: 1
   CanUseUpgrade_02: 1
+  CardId: 0
+  IsCardLocked: 0

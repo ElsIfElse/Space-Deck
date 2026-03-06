@@ -21,6 +21,7 @@ public class CardEffects
     public void StrengthenRandomCard(int amount)
     {
         List<GameplayCardSlot> notEmptySlots = _handManager.NotEmptySlots();
+
         int randomIndex = Random.Range(0,notEmptySlots.Count);
         Card randomCard = notEmptySlots[randomIndex].CurrentCardInSlot;
         randomCard.SetcardValue(randomCard.CardValue + amount);
@@ -34,7 +35,9 @@ public class CardEffects
         {
             Card card = slot.CurrentCardInSlot;
             card.SetcardValue(card.CardValue + amount);
-            yield return new WaitForSeconds(0.1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+            _cardVfx.CardForgerEffect(card);
+            AudioManager.Instance.Play(AudioType.ForgerBell);
+            yield return new WaitForSeconds(0.15f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
         }
     }
 
@@ -42,7 +45,7 @@ public class CardEffects
     {
         int cardsInHandCount = _handManager.NotEmptySlots().Count;
         yield return ActionManager.Instance.GameplayEndTurn.MoveCardsFromHandToDiscardPile();
-        ActionManager.Instance.DrawCard(cardsInHandCount+1+additionalCardsToBeDrawn);
+        ActionManager.Instance.DrawCard(cardsInHandCount+1+additionalCardsToBeDrawn,false);
     }
     public IEnumerator AddValueToCard(Card card,int amount)
     {

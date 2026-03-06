@@ -26,15 +26,15 @@ public class GameplayTurnStart : IGameplayState
     }
     public IEnumerator OnTurnStartRoutine()
     {
-        yield return _coroutineHelper.StartRoutine(DrawCards(4));
+        yield return _coroutineHelper.StartRoutine(DrawCards(true,4));
     }
 
-    public IEnumerator DrawCards(int amount = 4)
+    public IEnumerator DrawCards(bool isTurnStart = true,int amount = 4)
     {
         SetCanInteract(false);
         _cardEffects.ResetCardsPlayedThisTurn();
         if(debug) Debug.Log("Drawing cards");
-        _manaHandler.ResetMana();
+        if(isTurnStart) _manaHandler.ResetMana();
 
         List<GameplayCardSlot> slots = new();
         List<Card> cards = new();
