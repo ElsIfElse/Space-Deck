@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Mediumo_01
   m_EditorClassIdentifier: Assembly-CSharp::Mediumo
   CardName: 'Medior '
-  CardDescription: 
+  EffectDescription_01: 
+  EffectDescription_02: 
   ManaCost: 2
   CardValue: 3
   CardFront: {fileID: 21300000, guid: 788258b3cd0476f4bb54244af96036b8, type: 3}
@@ -21,6 +22,9 @@ MonoBehaviour:
   - UpgradeCost: 1
     UpgradeDescription: Increase card value by 1
     UpgradeName: Supernova
+    CurrencyType: 0
   CardType: 1
   CanUseUpgrade_01: 1
   CanUseUpgrade_02: 1
+  CardId: 21
+  IsCardLocked: 0

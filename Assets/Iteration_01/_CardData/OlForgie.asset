@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OlForgie
   m_EditorClassIdentifier: Assembly-CSharp::OlForgie
   CardName: Ol' Forgie
-  EffectDescription_01: Upgrade the value of all cards in hand.
+  EffectDescription_01: Upgrade all cards value in hand by <b>1</b>.
   EffectDescription_02: 
   ManaCost: 2
   CardValue: 0
@@ -26,6 +26,7 @@ MonoBehaviour:
   CardType: 9
   CanUseUpgrade_01: 1
   CanUseUpgrade_02: 1
-  _isCardLocked: 1
+  CardId: 0
+  IsCardLocked: 1
   _unlockCost: 2
   ValueUpgradeAmount: 0

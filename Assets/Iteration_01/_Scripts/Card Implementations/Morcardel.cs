@@ -30,4 +30,26 @@ public class Morcardel : BaseCardData
         SetDescription_Effect_01();
         OnUpgrade_Post(menuSlot);
     }
+
+    public override void LoadData(SavedDataClass data, int index = default)
+    {
+        MorcardelSaveData saveData = data.MorcardelSaveData;
+
+        CardValue = saveData.CardValue;
+        ManaCost = saveData.CardCost;
+        amountOfCardsToBeDrawn = saveData.AmountOfCardsToBeDrawn;
+
+        CardUpgrades[0].UpgradeCost = saveData.UpgradeCost_01;
+    }
+
+    public MorcardelSaveData GetSaveData()
+    {
+        MorcardelSaveData saveData = new MorcardelSaveData();
+        saveData.CardValue = CardValue;
+        saveData.CardCost = ManaCost;
+        saveData.AmountOfCardsToBeDrawn = amountOfCardsToBeDrawn;
+
+        saveData.UpgradeCost_01 = CardUpgrades[0].UpgradeCost;
+        return saveData;
+    }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Handeroo", menuName = "Data/Cards/Handeroo")]
 public class Handeroo : BaseCardData, ILockedCard
 {
-    [SerializeField] private bool _isCardLocked; public bool IsCardLocked {get => _isCardLocked; set => _isCardLocked = value;}
+    public bool isCardLocked {get => IsCardLocked; set => IsCardLocked = value;}
     [SerializeField] private int _unlockCost; public int UnlockCost { get => _unlockCost; set => _unlockCost = value; }
 
     public int AdditionalCardsToBeDrawn;
@@ -30,6 +30,34 @@ public class Handeroo : BaseCardData, ILockedCard
         IncreaseUpgradeCost(upgrade,2);
         SetDescription_Effect_01();
         OnUpgrade_Post(menuSlot);
+    }
+
+    public override void LoadData(SavedDataClass data, int index = default)
+    {
+        HanderooSaveData saveData = data.HanderooSaveData;
+
+        CardValue = saveData.CardValue;
+        ManaCost = saveData.CardCost;
+        AdditionalCardsToBeDrawn = saveData.AdditionalCardsToBeDrawn;
+
+        CardUpgrades[0].UpgradeCost = saveData.UpgradeCost_01;
+        IsCardLocked = saveData.IsCardLocked;
+        UnlockCost = saveData.UnlockCost;
+    }
+
+    public HanderooSaveData GetSaveData()
+    {
+        HanderooSaveData saveData = new HanderooSaveData();
+
+        saveData.CardValue = CardValue;
+        saveData.CardCost = ManaCost;
+        saveData.AdditionalCardsToBeDrawn = AdditionalCardsToBeDrawn;
+
+        saveData.UpgradeCost_01 = CardUpgrades[0].UpgradeCost;
+        saveData.IsCardLocked = IsCardLocked;
+        saveData.UnlockCost = UnlockCost;
+
+        return saveData;
     }
 
 }

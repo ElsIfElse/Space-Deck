@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Simple Card",menuName = "Data/Cards/Card")]
+[Serializable]
 public class BaseCardData : ScriptableObject
 {
     public string CardName;
@@ -18,6 +20,9 @@ public class BaseCardData : ScriptableObject
     
     public bool CanUseUpgrade_01 = true;
     public bool CanUseUpgrade_02 = true;
+
+    public int CardId;
+    public bool IsCardLocked;
 
 
     // The base card effect during gameplay when the card is played
@@ -161,5 +166,10 @@ public class BaseCardData : ScriptableObject
     public virtual void UpgradeCardEffectValue_02()
     {
         
+    }
+
+    public virtual void LoadData(SavedDataClass data, int index = default)
+    {
+
     }
 }

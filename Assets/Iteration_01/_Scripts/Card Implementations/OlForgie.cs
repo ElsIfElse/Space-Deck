@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "OlForgie", menuName = "Data/Cards/OlForgie")]
 public class OlForgie : BaseCardData, ILockedCard
 {
-    [SerializeField] private bool _isCardLocked; public bool IsCardLocked {get => _isCardLocked; set => _isCardLocked = value;}
+    public bool isCardLocked {get => IsCardLocked; set => IsCardLocked = value;}
     [SerializeField] private int _unlockCost; public int UnlockCost { get => _unlockCost; set => _unlockCost = value; }
     public int ValueUpgradeAmount;
 
@@ -29,6 +29,32 @@ public class OlForgie : BaseCardData, ILockedCard
         IncreaseUpgradeCost(upgrade,2);
         SetDescription_Effect_01();
         OnUpgrade_Post(menuSlot);
+    }
+
+    public override void LoadData(SavedDataClass data, int index = default)
+    {
+        OlForgieSaveData saveData = data.OlForgieSaveData;
+
+        CardValue = saveData.CardValue;
+        ManaCost = saveData.CardCost;
+        ValueUpgradeAmount = saveData.ValueUpgradeAmount;
+
+        CardUpgrades[0].UpgradeCost = saveData.UpgradeCost_01;
+        IsCardLocked = saveData.IsCardLocked;
+        UnlockCost = saveData.UnlockCost;
+    }
+
+    public OlForgieSaveData GetSaveData()
+    {
+        OlForgieSaveData saveData = new OlForgieSaveData();
+        saveData.CardValue = CardValue;
+        saveData.CardCost = ManaCost;
+        saveData.ValueUpgradeAmount = ValueUpgradeAmount;
+
+        saveData.UpgradeCost_01 = CardUpgrades[0].UpgradeCost;
+        saveData.IsCardLocked = IsCardLocked;
+        saveData.UnlockCost = UnlockCost;
+        return saveData;
     }
 
 }

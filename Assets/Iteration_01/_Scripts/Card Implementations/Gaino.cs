@@ -2,11 +2,11 @@ using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ManaGiver", menuName = "Data/Cards/ManaGiver")]
-public class ManaGiver : BaseCardData,ILockedCard
+public class Gaino : BaseCardData,ILockedCard
 {
     public int ManaToGain;
 
-    [SerializeField] private bool _isCardLocked; public bool IsCardLocked {get => _isCardLocked; set => _isCardLocked = value;}
+    public bool isCardLocked {get => IsCardLocked; set => IsCardLocked = value;}
     [SerializeField] private int _unlockCost; public int UnlockCost { get => _unlockCost; set => _unlockCost = value; }
 
     public override IEnumerator CardEffect(CardVfx cardVfx, Card card = null)
@@ -47,4 +47,30 @@ public class ManaGiver : BaseCardData,ILockedCard
         SetDescription_Effect_01();
         OnUpgrade_Post(menuSlot);
     }
+
+    public override void LoadData(SavedDataClass savedData, int index = default)
+    {
+        GainoSaveData data = savedData.GainoSaveData;
+
+        CardValue = data.CardValue;
+        ManaCost = data.CardCost;
+        ManaToGain = data.ManaToGain;
+
+        CardUpgrades[0].UpgradeCost = data.UpgradeCost_01;
+        CardUpgrades[1].UpgradeCost = data.UpgradeCost_02;
+    }
+
+    public GainoSaveData GetSaveData()
+    {
+        GainoSaveData saveData = new GainoSaveData();
+        saveData.CardValue = CardValue;
+        saveData.CardCost = ManaCost;
+        saveData.ManaToGain = ManaToGain;
+
+        saveData.UpgradeCost_01 = CardUpgrades[0].UpgradeCost;
+        saveData.UpgradeCost_02 = CardUpgrades[1].UpgradeCost;
+
+        return saveData;
+    }
+
 }

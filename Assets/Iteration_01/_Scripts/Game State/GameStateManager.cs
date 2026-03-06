@@ -22,11 +22,32 @@ public class GameStateManager : MonoBehaviour
     public TransitionHandler TransitionHandler;
     public TransitionHandlerData TransitionHandlerData;
     public GlobalValues GlobalValues;
-    public bool IsCheatOn = true;
-    
+
+    #region Save/Load
+    void LoadSaveData()
+    {
+        SavedDataClass data = SaveManager.Instance.LoadData();
+
+        if(data == null)
+        {
+            PlayerDeckHandler.Instance.OnFirstLoad();
+            MenuManager.Instance.CurrencyHandler.OnFirstLoad();
+            Debug.Log("No data found. First Load.");
+
+        }
+        else
+        {
+            MenuManager.Instance.CurrencyHandler.OnLoadSaveData(data);
+            PlayerDeckHandler.Instance.OnLoadingSavedData(data);
+            Debug.Log("Data Loaded!");
+        }
+
+        MenuManager.Instance.MenuSlotHandler.SetMenuSlots(true);
+    }
+    #endregion
     void Cheat()
     {
-        if(IsCheatOn) MenuManager.Instance.CurrencyHandler.AddCurrency_Primary(20);
+        MenuManager.Instance.CurrencyHandler.AddCurrency_Primary(20);
     }
 
     void OnGameStart()
@@ -36,9 +57,11 @@ public class GameStateManager : MonoBehaviour
         Initialize_GameStateManager(); 
         Cheat();
     }
-    void Start()
+    IEnumerator Start()
     {
         OnGameStart();
+        yield return new WaitForSeconds(0.05f);
+        LoadSaveData();
     }
 
     void Initialize_GameStateManager()
@@ -90,8 +113,22 @@ public class GameStateManager : MonoBehaviour
         _states.Add(GameStateEnum.Menu, _menuState);
     }
 
-    // void OnGUI()
-    // {
-    //     GUI.Label(new Rect(0,0,200,50),"Animation Speed: " + GlobalValues.AnimationSpeed);
-    // }
+    void OnGUI()
+    {
+        if(GUI.Button(new Rect(0, 0, 100, 30), "Save"))
+        {
+            SaveManager.Instance.SaveData();
+        }
+
+        if(GUI.Button(new Rect(0, 30, 100, 30), "Delete Save Data"))
+        {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+            Debug.Log("Save data cleared.");
+        }
+        if(GUI.Button(new Rect(0, 60, 100, 30), "Cheat"))
+        {
+            Cheat();
+        }
+    }
 }

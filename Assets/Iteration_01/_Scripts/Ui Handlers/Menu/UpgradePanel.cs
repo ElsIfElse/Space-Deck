@@ -54,7 +54,7 @@ public class UpgradePanel : MonoBehaviour,IUiHandler
        PlayerDeckHandler.Instance.MoveCardFromLockedToDeck(upgradeData as BaseCardData); 
        MenuManager.Instance.MenuSlotHandler.SetMenuSlots(false);
        MenuUiManager.Instance.MenuCardUpgradeUiHandler.SetState(false);
-       upgradeData.IsCardLocked = false;
+       upgradeData.isCardLocked = false;
     }
 
     public void SetState(bool state)

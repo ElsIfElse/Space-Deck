@@ -30,6 +30,7 @@ MonoBehaviour:
   CardType: 6
   CanUseUpgrade_01: 1
   CanUseUpgrade_02: 1
+  CardId: 0
+  IsCardLocked: 1
   ManaToGain: 1
-  _isCardLocked: 1
   _unlockCost: 2

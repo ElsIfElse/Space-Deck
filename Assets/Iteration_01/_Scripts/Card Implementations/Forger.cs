@@ -93,7 +93,37 @@ public class Forger : BaseCardData
             SetDescription_Effect_02();
             OnUpgrade_Post(menuSlot);
         }
+    }
 
+    public override void LoadData(SavedDataClass savedData, int index = default)
+    {
+        ForgeroSaveData data = savedData.ForgeroSaveData;
+
+        CardValue = data.CardValue;
+        ManaCost = data.CardCost;
+
+        StrengtheningAmount_01 = data.UpgradeAmount_01;
+        StrengtheningAmount_02 = data.UpgradeAmount_02;
+
+        CardUpgrades[0].UpgradeCost = data.UpgradeCost_01;
+        CardUpgrades[1].UpgradeCost = data.UpgradeCost_02;
+        
+        IsSecondUpgradeUnlocked = data.IsSecondUpgradeUnlocked;
+    }
+    public ForgeroSaveData GetSaveData()
+    {
+        ForgeroSaveData saveData = new ForgeroSaveData();
+        saveData.CardValue = CardValue;
+        saveData.CardCost = ManaCost;
+
+        saveData.UpgradeCost_01 = CardUpgrades[0].UpgradeCost;
+        saveData.UpgradeCost_02 = CardUpgrades[1].UpgradeCost;
+
+        saveData.UpgradeAmount_01 = StrengtheningAmount_01;
+        saveData.UpgradeAmount_02 = StrengtheningAmount_02;
+
+        saveData.IsSecondUpgradeUnlocked = IsSecondUpgradeUnlocked;
+        return saveData;
     }
 
 }

@@ -23,6 +23,12 @@ public class MenuSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
     public void InitializeMenuSlot(BaseCardData baseCardData, CardEffectDescriptions cardEffectDescriptions)
     {
         _cardEffectDescriptions = cardEffectDescriptions;
+        
+        if(baseCardData == null)
+        {
+            Debug.Log("BaseCardData is null!");
+            return;
+        }
 
         _dataInSlot = baseCardData;
         _dataInSlot.EffectDescription_01 = _cardEffectDescriptions.EffectDescriptions[baseCardData.CardType].Effect_01_Description;

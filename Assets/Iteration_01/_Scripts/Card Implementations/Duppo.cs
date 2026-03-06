@@ -23,4 +23,21 @@ public class Duppo : BaseCardData
         IncreaseUpgradeCost(upgrade,2);
         OnUpgrade_Post(menuSlot);
     }
+
+    public override void LoadData(SavedDataClass savedData, int index = default)
+    {
+        DuppoSaveData data = savedData.DuppoSaveData;
+
+        CardValue = data.CardValue;
+        ManaCost = data.CardCost;
+        CardUpgrades[0].UpgradeCost = data.UpgradeCost_01;
+    }    
+    public DuppoSaveData GetSaveData()
+    {
+        DuppoSaveData saveData = new DuppoSaveData();
+        saveData.CardValue = CardValue;
+        saveData.CardCost = ManaCost;
+        saveData.UpgradeCost_01 = CardUpgrades[0].UpgradeCost;
+        return saveData;
+    }
 }

@@ -58,7 +58,6 @@ public class GamePLayStart : IGameplayState
             newCard.SetCard(cardData);
             _deckManager.AddCardToDeck(newCard);
         }
-
     }
 
     void InitializeSystems()

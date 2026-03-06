@@ -38,4 +38,30 @@ public class Growero : BaseCardData
         CardValue++;
         OnUpgrade_Post(menuSlot);
     }
+
+    public override void LoadData(SavedDataClass savedData, int index = default)
+    {
+        GroweroSaveData data = savedData.GroweroSaveData;
+
+        CardValue = data.CardValue;
+        ManaCost = data.CardCost;
+
+        CardUpgrades[0].UpgradeCost = data.UpgradeCost_01;
+        CardUpgrades[1].UpgradeCost = data.UpgradeCost_02;
+
+        ActionManager.Instance.CardEffects.GroweroGrowAmount = data.GroweroGrowAmount;
+    }
+
+    public GroweroSaveData GetSaveData()
+    {
+        GroweroSaveData saveData = new GroweroSaveData();
+        saveData.CardValue = CardValue;
+        saveData.CardCost = ManaCost;
+        saveData.GroweroGrowAmount = ActionManager.Instance.CardEffects.GroweroGrowAmount;
+
+        saveData.UpgradeCost_01 = CardUpgrades[0].UpgradeCost;
+        saveData.UpgradeCost_02 = CardUpgrades[1].UpgradeCost;
+
+        return saveData;
+    }
 }

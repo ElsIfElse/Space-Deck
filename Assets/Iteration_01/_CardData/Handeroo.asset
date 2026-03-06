@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Handeroo
   m_EditorClassIdentifier: Assembly-CSharp::Handeroo
   CardName: Handeroo
-  EffectDescription_01: 
+  EffectDescription_01: Discard all cards from hand and draw the same amount from
+    the deck pile + <b>0</b>.
   EffectDescription_02: 
   ManaCost: 0
   CardValue: 0
@@ -26,6 +27,7 @@ MonoBehaviour:
   CardType: 10
   CanUseUpgrade_01: 1
   CanUseUpgrade_02: 1
-  _isCardLocked: 1
+  CardId: 0
+  IsCardLocked: 1
   _unlockCost: 2
   AdditionalCardsToBeDrawn: 0

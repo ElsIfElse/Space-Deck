@@ -28,4 +28,25 @@ public class Discardo : BaseCardData
         SetDescription_Effect_01();
         OnUpgrade_Post(menuSlot);
     }
+
+    public override void LoadData(SavedDataClass savedData, int index = default)
+    {
+        DiscardoSaveData data = savedData.DiscardoSaveData;
+
+        CardValue = data.CardValue;
+        ManaCost = data.CardCost;
+        _effectMultiplier = data.EffectMultiplier;
+        
+        CardUpgrades[0].UpgradeCost = data.UpgradeCost_01;
+    }
+
+    public DiscardoSaveData GetSaveData()
+    {
+        DiscardoSaveData saveData = new DiscardoSaveData();
+        saveData.CardValue = CardValue;
+        saveData.CardCost = ManaCost;
+        saveData.EffectMultiplier = _effectMultiplier;
+        saveData.UpgradeCost_01 = CardUpgrades[0].UpgradeCost;
+        return saveData;
+    }
 }

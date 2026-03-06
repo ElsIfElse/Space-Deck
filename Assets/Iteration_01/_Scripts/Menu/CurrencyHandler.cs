@@ -16,12 +16,28 @@ public class CurrencyHandler
         MenuUiManager.Instance.MenuCurrencyUiHandler.UpdateCurrencyText_Secondary(_secondaryCurrency);
     }
 
-    
+    public void OnFirstLoad()
+    {
+        SetCurrency_Primary(5);
+        SetCurrency_Secondary(0);
+    }
+
+    public void OnLoadSaveData(SavedDataClass data)
+    {
+        SetCurrency_Primary(data.PrimaryCurrency);
+        SetCurrency_Secondary(data.SecondaryCurrency);
+    }
 
     #region Primary Currency
     public void AddCurrency_Primary(int amount)
     {
         _primaryCurrency += amount;
+        MenuUiManager.Instance.MenuCurrencyUiHandler.UpdateCurrencyText_Primary(_primaryCurrency);
+    }
+
+    public void SetCurrency_Primary(int amount)
+    {
+        _primaryCurrency = amount; 
         MenuUiManager.Instance.MenuCurrencyUiHandler.UpdateCurrencyText_Primary(_primaryCurrency);
     }
     public void SpendCurrency_Primary(int amount)
@@ -44,6 +60,11 @@ public class CurrencyHandler
     public void AddCurrency_Secondary(int amount)
     {
         _secondaryCurrency += amount;
+        MenuUiManager.Instance.MenuCurrencyUiHandler.UpdateCurrencyText_Secondary(_secondaryCurrency);
+    }
+    public void SetCurrency_Secondary(int amount)
+    {
+        _secondaryCurrency = amount;
         MenuUiManager.Instance.MenuCurrencyUiHandler.UpdateCurrencyText_Secondary(_secondaryCurrency);
     }
     public void SpendCurrency_Secondary(int amount)

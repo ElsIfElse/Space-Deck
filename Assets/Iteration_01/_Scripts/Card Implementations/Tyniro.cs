@@ -23,4 +23,26 @@ public class Tyniro : BaseCardData
         CardValue++;
         OnUpgrade_Post(menuSlot);
     }
+
+    public override void LoadData(SavedDataClass data, int index = 0)
+    {
+        TyniroSaveData saved = data.TyniroSaveDatas[index];
+
+        CardId = saved.Id;
+        CardValue = saved.CardValue;
+        ManaCost = saved.CardCost;
+        CardUpgrades[0].UpgradeCost = saved.UpgradeCost_01;
+    }
+
+    public TyniroSaveData GetSaveData()
+    {
+        TyniroSaveData data = new TyniroSaveData();
+
+        data.Id = CardId;
+        data.CardCost = ManaCost;
+        data.CardValue = CardValue;
+        data.UpgradeCost_01 = CardUpgrades[0].UpgradeCost;
+
+        return data;
+    }
 }

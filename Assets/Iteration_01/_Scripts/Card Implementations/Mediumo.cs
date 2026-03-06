@@ -27,4 +27,26 @@ public class Mediumo : BaseCardData
         OnUpgrade_Post(menuSlot);
         SetDescription_Effect_01();
     }
+
+    public MediumoSaveData GetSaveData()
+    {
+        MediumoSaveData data = new MediumoSaveData();
+
+        data.Id = CardId;
+        data.CardCost = ManaCost;
+        data.CardValue = CardValue;
+        data.UpgradeCost_01 = CardUpgrades[0].UpgradeCost;
+
+        return data;
+    }
+
+    public override void LoadData(SavedDataClass data, int index = 0)
+    {
+        MediumoSaveData saved = data.MediumoSaveDatas[index];
+
+        CardId = saved.Id;
+        CardValue = saved.CardValue;
+        ManaCost = saved.CardCost;
+        CardUpgrades[0].UpgradeCost = saved.UpgradeCost_01;
+    }
 }

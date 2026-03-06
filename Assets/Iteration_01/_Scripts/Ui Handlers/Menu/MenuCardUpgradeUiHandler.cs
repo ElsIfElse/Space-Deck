@@ -32,7 +32,7 @@ public class MenuCardUpgradeUiHandler : IUiHandler
 
     public void SetUpgradePanelsData(BaseCardData data, MenuSlot slot)
     {
-        if(data is ILockedCard && (data as ILockedCard).IsCardLocked == true)
+        if(data is ILockedCard && (data as ILockedCard).isCardLocked == true)
         {
             HandleLockedCard(data as ILockedCard,slot);
             return;
