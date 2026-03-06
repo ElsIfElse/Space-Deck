@@ -9,7 +9,6 @@ public class GamePLayStart : IGameplayState
     TurnManager _turnManager;
     ManaHandler _manaHandler;
     DeckManager _deckManager;
-    bool debug = true;
 
     public void Initialize(GameplayStateDataStruct data)
     {

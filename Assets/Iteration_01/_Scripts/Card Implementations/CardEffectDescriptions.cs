@@ -23,6 +23,8 @@ public class CardEffectDescriptions
             {CardType.Duppo,new()},
             {CardType.Forgero,new()},
             {CardType.OlForgie,new()},
+            {CardType.Handeroo,new()}
+
         };
 
         SetBaseDescriptions();
@@ -38,6 +40,7 @@ public class CardEffectDescriptions
         EffectDescription_Morcardel();
         EffectDescription_Gaino(1);
         EffectDescription_OlForgie(1);
+        EffectDescription_Handeroo(0);
     }
 
     public string EffectDescription_Forgero(int valueIncrease,int descriptionIndex)
@@ -85,6 +88,11 @@ public class CardEffectDescriptions
     {
         EffectDescriptions[CardType.OlForgie].Effect_01_Description = $"Upgrade all cards value in hand by <b>{upgradeValue}</b>.";
         return EffectDescriptions[CardType.OlForgie].Effect_01_Description; 
+    }
+    public string EffectDescription_Handeroo(int additionalCardsToBeDrawn)
+    {
+        EffectDescriptions[CardType.Handeroo].Effect_01_Description = $"Discard all cards from hand and draw the same amount from the deck pile + <b>{additionalCardsToBeDrawn}</b>.";
+        return EffectDescriptions[CardType.Handeroo].Effect_01_Description;
     }
 }
 

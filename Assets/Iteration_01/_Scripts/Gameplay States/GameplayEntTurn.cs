@@ -56,7 +56,7 @@ public class GameplayEndTurn : IGameplayState
     bool IsHandEmpty() => _handManager.IsHandEmpty();
     void SetCanInteract(bool state) => ActionManager.Instance.SetcanInteract(state);
 
-    IEnumerator MoveCardsFromHandToDiscardPile()
+    public IEnumerator MoveCardsFromHandToDiscardPile()
     {
         List<GameplayCardSlot> slots = _handManager.NotEmptySlots();
 

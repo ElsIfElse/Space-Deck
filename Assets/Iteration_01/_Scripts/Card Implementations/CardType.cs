@@ -9,5 +9,6 @@ public enum CardType
     Gaino,
     Playedo,
     Forgero,
-    OlForgie
+    OlForgie,
+    Handeroo
 }

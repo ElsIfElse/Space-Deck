@@ -7,7 +7,7 @@ public class Discardo : BaseCardData
     int _effectMultiplier = 1;
     public override IEnumerator CardEffect(CardVfx cardVfx, Card card = null)
     {
-        card.CardValue = ActionManager.Instance.DiscardPileManager.DeckCount();
+        card.CardValue = ActionManager.Instance.DiscardPileManager.DeckCount() * _effectMultiplier;
         GainValueSequence(cardVfx,card);
         yield return null;
     }

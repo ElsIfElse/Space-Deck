@@ -9,6 +9,8 @@ public class CardEffects
 
     public int GroweroGrowAmount = 2;
     private int _cardsPlayedThisTurn = 0;
+    
+    ICoroutineHelper _coroutineHelper;
     public CardEffects(HandManager handManager, CardVfx cardVfx)
     {
         _handManager = handManager;
@@ -32,10 +34,15 @@ public class CardEffects
         {
             Card card = slot.CurrentCardInSlot;
             card.SetcardValue(card.CardValue + amount);
-            _cardVfx.CardForgerEffect(card);
             yield return new WaitForSeconds(0.1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
         }
+    }
 
+    public IEnumerator ChangeHand(int additionalCardsToBeDrawn)
+    {
+        int cardsInHandCount = _handManager.NotEmptySlots().Count;
+        yield return ActionManager.Instance.GameplayEndTurn.MoveCardsFromHandToDiscardPile();
+        ActionManager.Instance.DrawCard(cardsInHandCount+1+additionalCardsToBeDrawn);
     }
     public IEnumerator AddValueToCard(Card card,int amount)
     {

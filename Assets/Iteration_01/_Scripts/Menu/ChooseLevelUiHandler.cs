@@ -134,7 +134,7 @@ public class ChooseLevelUiHandler : IUiHandler
         if(state)
         {
             _chooseMapPanel.SetActive(true);
-            _menuCardUpgradeUiHandler.SetState(false);
+            _menuCardUpgradeUiHandler.SetState(false); 
             MenuManager.Instance.MenuSlotHandler.HideMenuSlots();
         }
         else
