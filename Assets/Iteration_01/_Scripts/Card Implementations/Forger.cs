@@ -46,7 +46,7 @@ public class Forger : BaseCardData
     {
         CardUpgrades[upgradeIndex].SetUpgradeDescription(description);
     }
-
+ 
     public override void Upgrade_01(MenuSlot menuSlot)
     {
         Upgrade upgrade = CardUpgrades[0];
@@ -102,13 +102,19 @@ public class Forger : BaseCardData
         CardValue = data.CardValue;
         ManaCost = data.CardCost;
 
-        StrengtheningAmount_01 = data.UpgradeAmount_01;
-        StrengtheningAmount_02 = data.UpgradeAmount_02;
+        CardUpgrades.Clear();
+        CardUpgrades.AddRange(data.Upgrades);
+        EffectDescription_01 = data.EffectDescription_01;
+        EffectDescription_02 = data.EffectDescription_02;
 
-        CardUpgrades[0].UpgradeCost = data.UpgradeCost_01;
-        CardUpgrades[1].UpgradeCost = data.UpgradeCost_02;
+        // StrengtheningAmount_01 = data.UpgradeAmount_01;
+        // StrengtheningAmount_02 = data.UpgradeAmount_02;
+
+        // CardUpgrades[0].UpgradeCost = data.UpgradeCost_01;
+        // CardUpgrades[1].UpgradeCost = data.UpgradeCost_02;
         
         IsSecondUpgradeUnlocked = data.IsSecondUpgradeUnlocked;
+        // OnDataLoad(null);
     }
     public ForgeroSaveData GetSaveData()
     {
@@ -116,11 +122,18 @@ public class Forger : BaseCardData
         saveData.CardValue = CardValue;
         saveData.CardCost = ManaCost;
 
-        saveData.UpgradeCost_01 = CardUpgrades[0].UpgradeCost;
-        saveData.UpgradeCost_02 = CardUpgrades[1].UpgradeCost;
+        saveData.Upgrades = CardUpgrades;
+        saveData.EffectDescription_01 = EffectDescription_01;
+        saveData.EffectDescription_02 = EffectDescription_02;
 
-        saveData.UpgradeAmount_01 = StrengtheningAmount_01;
-        saveData.UpgradeAmount_02 = StrengtheningAmount_02;
+        SetDescription_Effect_01();
+        SetDescription_Effect_02();
+
+        // saveData.UpgradeCost_01 = CardUpgrades[0].UpgradeCost;
+        // saveData.UpgradeCost_02 = CardUpgrades[1].UpgradeCost;
+
+        // saveData.UpgradeAmount_01 = StrengtheningAmount_01;
+        // saveData.UpgradeAmount_02 = StrengtheningAmount_02;
 
         saveData.IsSecondUpgradeUnlocked = IsSecondUpgradeUnlocked;
         return saveData;

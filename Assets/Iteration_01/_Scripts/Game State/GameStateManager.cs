@@ -22,6 +22,7 @@ public class GameStateManager : MonoBehaviour
     public TransitionHandler TransitionHandler;
     public TransitionHandlerData TransitionHandlerData;
     public GlobalValues GlobalValues;
+    public bool IsGuiOn;
 
     #region Save/Load
     void LoadSaveData()
@@ -52,6 +53,7 @@ public class GameStateManager : MonoBehaviour
 
     void OnGameStart()
     {
+        Application.targetFrameRate = 144;
         CreateSubHandlers();
         Initialize_SingletonManagers();
         Initialize_GameStateManager(); 
@@ -115,6 +117,7 @@ public class GameStateManager : MonoBehaviour
 
     void OnGUI()
     {
+        if(!IsGuiOn) return;
         if(GUI.Button(new Rect(0, 0, 100, 30), "Save"))
         {
             SaveManager.Instance.SaveData();
@@ -129,6 +132,10 @@ public class GameStateManager : MonoBehaviour
         if(GUI.Button(new Rect(0, 60, 100, 30), "Cheat"))
         {
             Cheat();
+        }
+        if(GUI.Button(new Rect(0, 90, 100, 30), "Gain Mana"))
+        {
+            ActionManager.Instance.ManaHandler.GainMana(1);
         }
     }
 }

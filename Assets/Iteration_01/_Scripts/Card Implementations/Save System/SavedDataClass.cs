@@ -6,6 +6,7 @@ public class SavedDataClass
 {
     public int PrimaryCurrency;
     public int SecondaryCurrency;
+    public int TotalPrimaryCurrencySpent;
 
     public List<TyniroSaveData> TyniroSaveDatas = new List<TyniroSaveData>();
     public List<MediumoSaveData> MediumoSaveDatas = new List<MediumoSaveData>();

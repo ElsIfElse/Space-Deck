@@ -7,8 +7,14 @@ public class Discardo : BaseCardData
     int _effectMultiplier = 1;
     public override IEnumerator CardEffect(CardVfx cardVfx, Card card = null)
     {
+        int originalValue = card.CardValue;
+        GainValueSequence(cardVfx,card);
+        yield return new WaitForSeconds(1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+
         card.CardValue = ActionManager.Instance.DiscardPileManager.DeckCount() * _effectMultiplier;
         GainValueSequence(cardVfx,card);
+
+        card.CardValue = originalValue;
         yield return null;
     }
 
@@ -23,7 +29,7 @@ public class Discardo : BaseCardData
 
         if(!CanAfford(CardUpgrades[0],menuSlot)) return;
         SpendCurrency(upgrade);
-        IncreaseUpgradeCost(upgrade,2);
+        IncreaseUpgradeCost(upgrade,5);
         _effectMultiplier++;
         SetDescription_Effect_01();
         OnUpgrade_Post(menuSlot);

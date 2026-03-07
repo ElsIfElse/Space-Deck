@@ -135,7 +135,13 @@ public class BaseCardData : ScriptableObject
         MenuUiManager.Instance.MenuCardUpgradeUiHandler.SetUpgradePanelsData(this, menuSlot);
         ActionManager.Instance.CardVfx.CardUpgradedEffect(menuSlot._cardGameObject);
         AudioManager.Instance.Play(AudioType.Upgrade,0,true);
+        SaveManager.Instance.SaveData();
     }
+
+    // public void OnDataLoad(MenuSlot menuSlot)
+    // {
+    //     menuSlot.UpdateSlotValues();
+    // }
 
     // Plays audio
     // Adds value points

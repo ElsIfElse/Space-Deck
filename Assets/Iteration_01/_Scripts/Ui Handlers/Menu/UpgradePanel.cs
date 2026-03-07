@@ -34,6 +34,7 @@ public class UpgradePanel : MonoBehaviour,IUiHandler
             {
                 OnUnlockButtonClick(upgradeData);
                 AudioManager.Instance.Play(AudioType.ForgerBell);
+                SaveManager.Instance.SaveData();
             }
             else
             {
@@ -54,6 +55,7 @@ public class UpgradePanel : MonoBehaviour,IUiHandler
        PlayerDeckHandler.Instance.MoveCardFromLockedToDeck(upgradeData as BaseCardData); 
        MenuManager.Instance.MenuSlotHandler.SetMenuSlots(false);
        MenuUiManager.Instance.MenuCardUpgradeUiHandler.SetState(false);
+       MenuManager.Instance.CurrencyHandler.SpendCurrency_Secondary(upgradeData.UnlockCost);
        upgradeData.isCardLocked = false;
     }
 

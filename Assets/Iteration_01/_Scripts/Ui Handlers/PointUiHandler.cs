@@ -55,15 +55,15 @@ public class PointUiHandler : IUiHandler
         _pointGainIndicatorTextTween_01?.Kill();
 
         _pointGainIndicatorText.rectTransform.anchoredPosition = _pointGainIndicatorTextOriginalPosition;
-        _pointGainIndicatorTextTween_02 = _pointGainIndicatorText.transform.DOMoveY(_pointGainIndicatorText.transform.position.y + 15f, 1f).SetEase(Ease.InOutSine);
+        _pointGainIndicatorTextTween_02 = _pointGainIndicatorText.transform.DOMoveY(_pointGainIndicatorText.transform.position.y + 15f, 1f / GameStateManager.Instance.GlobalValues.AnimationSpeed).SetEase(Ease.InOutSine);
 
         _pointGainIndicatorText.gameObject.SetActive(true);
         _pointGainIndicatorText.text = "+" + amount.ToString() + " <sprite name=resource>";
 
-        _pointGainIndicatorTextTween_01 = _pointGainIndicatorText.DOFade(1f, 0.1f).SetEase(Ease.InOutSine).OnComplete(() =>
+        _pointGainIndicatorTextTween_01 = _pointGainIndicatorText.DOFade(1f, 0.1f / GameStateManager.Instance.GlobalValues.AnimationSpeed).SetEase(Ease.InOutSine).OnComplete(() =>
         _pointGainIndicatorTextTween_01 = _pointGainIndicatorText.transform.DOScale(1.2f, 0.4f).SetEase(Ease.InOutSine).OnComplete(() => 
-        _pointGainIndicatorTextTween_01 = _pointGainIndicatorText.transform.DOScale(_pointGainIndicatorTextOriginalTransform.localScale, 0.4f).SetEase(Ease.InOutSine).OnComplete(() =>
-        _pointGainIndicatorTextTween_01 = _pointGainIndicatorText.DOFade(0f, 0.1f).SetEase(Ease.InOutSine).OnComplete(() =>
+        _pointGainIndicatorTextTween_01 = _pointGainIndicatorText.transform.DOScale(_pointGainIndicatorTextOriginalTransform.localScale, 0.4f / GameStateManager.Instance.GlobalValues.AnimationSpeed).SetEase(Ease.InOutSine).OnComplete(() =>
+        _pointGainIndicatorTextTween_01 = _pointGainIndicatorText.DOFade(0f, 0.1f / GameStateManager.Instance.GlobalValues.AnimationSpeed).SetEase(Ease.InOutSine).OnComplete(() =>
         _pointGainIndicatorText.gameObject.SetActive(false)))));
     }
 

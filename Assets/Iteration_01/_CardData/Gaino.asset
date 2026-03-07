@@ -19,7 +19,7 @@ MonoBehaviour:
   CardValue: 1
   CardFront: {fileID: 21300000, guid: 80568395acb1ae04a9191f2dc07439b9, type: 3}
   CardUpgrades:
-  - UpgradeCost: 2
+  - UpgradeCost: 5
     UpgradeDescription: Decrease card play cost by 1
     UpgradeName: Eclipse
     CurrencyType: 0
@@ -33,4 +33,4 @@ MonoBehaviour:
   CardId: 0
   IsCardLocked: 1
   ManaToGain: 1
-  _unlockCost: 2
+  _unlockCost: 5

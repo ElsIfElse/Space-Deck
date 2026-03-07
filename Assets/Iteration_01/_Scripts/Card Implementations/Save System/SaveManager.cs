@@ -45,6 +45,7 @@ public class SaveManager : MonoBehaviour
             // Add data to object
             PrimaryCurrency = MenuManager.Instance.CurrencyHandler.CurrencyCount_Primary(),
             SecondaryCurrency = MenuManager.Instance.CurrencyHandler.CurrencyCount_Secondary(),
+            TotalPrimaryCurrencySpent = MenuManager.Instance.CurrencyHandler.TotalPrimaryCurrencySpentCount(),
             
             DiscardoSaveData = (PlayerDeckHandler.Instance.GetCard(CardType.Discardo) as Discardo).GetSaveData(),
             DuppoSaveData = (PlayerDeckHandler.Instance.GetCard(CardType.Duppo) as Duppo).GetSaveData(),

@@ -31,8 +31,15 @@ public class MenuSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
         }
 
         _dataInSlot = baseCardData;
-        _dataInSlot.EffectDescription_01 = _cardEffectDescriptions.EffectDescriptions[baseCardData.CardType].Effect_01_Description;
-        _dataInSlot.EffectDescription_02 = _cardEffectDescriptions.EffectDescriptions[baseCardData.CardType].Effect_02_Description; 
+
+    // Only set from shared descriptions if the card doesn't already have its own
+        if(string.IsNullOrEmpty(_dataInSlot.EffectDescription_01))
+            _dataInSlot.EffectDescription_01 = _cardEffectDescriptions.EffectDescriptions[baseCardData.CardType].Effect_01_Description;
+        if(string.IsNullOrEmpty(_dataInSlot.EffectDescription_02))
+            _dataInSlot.EffectDescription_02 = _cardEffectDescriptions.EffectDescriptions[baseCardData.CardType].Effect_02_Description;
+
+        // _dataInSlot.EffectDescription_01 = _cardEffectDescriptions.EffectDescriptions[baseCardData.CardType].Effect_01_Description;
+        // _dataInSlot.EffectDescription_02 = _cardEffectDescriptions.EffectDescriptions[baseCardData.CardType].Effect_02_Description; 
         _cardVisualSprite = _dataInSlot.CardFront;
 
         SetCardVisual(_cardVisualSprite);
@@ -87,8 +94,10 @@ public class MenuSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
     }
     public void UpdateDescriptionTexts()
     {
-        _dataInSlot.EffectDescription_01 = _cardEffectDescriptions.EffectDescriptions[_dataInSlot.CardType].Effect_01_Description;
-        _dataInSlot.EffectDescription_02 = _cardEffectDescriptions.EffectDescriptions[_dataInSlot.CardType].Effect_02_Description;
+        if(string.IsNullOrEmpty(_dataInSlot.EffectDescription_01))
+            _dataInSlot.EffectDescription_01 = _cardEffectDescriptions.EffectDescriptions[_dataInSlot.CardType].Effect_01_Description;
+        if(string.IsNullOrEmpty(_dataInSlot.EffectDescription_02))
+            _dataInSlot.EffectDescription_02 = _cardEffectDescriptions.EffectDescriptions[_dataInSlot.CardType].Effect_02_Description;
     }
 
     public void OnPointerClick(PointerEventData eventData)

@@ -21,13 +21,13 @@ MonoBehaviour:
   CardFront: {fileID: 21300000, guid: 3938ce1193d34c446834a509e9960cdd, type: 3}
   CardUpgrades:
   - UpgradeCost: 2
+    UpgradeDescription: Increase card value by 1.
+    UpgradeName: More chunk
+    CurrencyType: 0
+  - UpgradeCost: 4
     UpgradeDescription: Increase the amount of value grown when keeping it in your
       hand by 1.
     UpgradeName: Chunkerson
-    CurrencyType: 0
-  - UpgradeCost: 2
-    UpgradeDescription: Increase card value by 1.
-    UpgradeName: More chunk
     CurrencyType: 0
   CardType: 4
   CanUseUpgrade_01: 1

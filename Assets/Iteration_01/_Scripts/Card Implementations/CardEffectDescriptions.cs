@@ -60,17 +60,17 @@ public class CardEffectDescriptions
     }
     public string EffectDescription_Duppo()
     {
-        EffectDescriptions[CardType.Duppo].Effect_01_Description = $"The next card played will have it's value gain and effect played twice.";
+        EffectDescriptions[CardType.Duppo].Effect_01_Description = $"The next card played will have it's value gain and effect played twice. This effect also carries over to the next turn.";
         return EffectDescriptions[CardType.Duppo].Effect_01_Description;
     }
     public string EffectDescription_Playedo(int valueIncrease)
     {
-        EffectDescriptions[CardType.Playedo].Effect_01_Description = $"This card's value is always the amount of cards played this turn * <b>{valueIncrease}</b>.";
+        EffectDescriptions[CardType.Playedo].Effect_01_Description = $"On top of the card's value You also gain the amount of cards played this turn * <b>{valueIncrease}</b>.";
         return EffectDescriptions[CardType.Playedo].Effect_01_Description;
     }
     public string EffectDescription_Discardo(int valueIncrease)
     {
-        EffectDescriptions[CardType.Discardo].Effect_01_Description = $"This card's value is always the amount of cards in the discard pile * <b>{valueIncrease}</b>.";
+        EffectDescriptions[CardType.Discardo].Effect_01_Description = $"On top of the card's value you also gain the amount of cards in the discard pile * <b>{valueIncrease}</b>.";
         return EffectDescriptions[CardType.Discardo].Effect_01_Description;
     }
     public string EffectDescription_Morcardel()
@@ -92,6 +92,10 @@ public class CardEffectDescriptions
     {
         EffectDescriptions[CardType.Handeroo].Effect_01_Description = $"Discard all cards from hand and draw the same amount from the deck pile + <b>{additionalCardsToBeDrawn}</b>.";
         return EffectDescriptions[CardType.Handeroo].Effect_01_Description;
+    }
+    public string EffectDescription_Tyniro()
+    {
+        return $"When this card is played and your hand is empty this card's value is counted 2x this turn.";
     }
 }
 

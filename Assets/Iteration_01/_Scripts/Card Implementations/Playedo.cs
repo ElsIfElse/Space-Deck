@@ -7,9 +7,13 @@ public class Playedo : BaseCardData
     int _effectMultiplier = 1;
     public override IEnumerator CardEffect(CardVfx cardVfx, Card card = null)
     {
-        // base.CardEffect(cardVfx, card);
+        int originalValue = card.CardValue;
+        GainValueSequence(cardVfx,card);
+        yield return new WaitForSeconds(1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+
         card.CardValue = ActionManager.Instance.CardEffects.CardsPlayedThisTurn() * _effectMultiplier;
         GainValueSequence(cardVfx,card);
+        card.CardValue = originalValue;
         yield return null;
     }
 

@@ -85,8 +85,15 @@ public class PlayerDeckHandler : MonoBehaviour
                 case CardType.Growero:   card.LoadData(data); break;
                 case CardType.Gaino:     card.LoadData(data); break;
 
-            case CardType.Tyniro:    card.LoadData(data, tyniroIndex++);  break;
-            case CardType.Mediumo:   card.LoadData(data, mediumoIndex++); break;
+            case CardType.Tyniro:    
+                card.LoadData(data, tyniroIndex);
+                tyniroIndex++;
+                break;
+
+            case CardType.Mediumo:   
+                card.LoadData(data, mediumoIndex);
+                mediumoIndex++;
+                break;
             }
         }
 

@@ -28,5 +28,5 @@ MonoBehaviour:
   CanUseUpgrade_02: 1
   CardId: 0
   IsCardLocked: 1
-  _unlockCost: 2
+  _unlockCost: 5
   ValueUpgradeAmount: 1

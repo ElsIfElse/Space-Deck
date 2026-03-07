@@ -26,7 +26,11 @@ public class CurrencyHandler
     {
         SetCurrency_Primary(data.PrimaryCurrency);
         SetCurrency_Secondary(data.SecondaryCurrency);
+        
+        _totalPrimaryCurrencySpent = data.TotalPrimaryCurrencySpent;
     }
+
+    public int TotalPrimaryCurrencySpentCount() => _totalPrimaryCurrencySpent;
 
     #region Primary Currency
     public void AddCurrency_Primary(int amount)
@@ -45,7 +49,7 @@ public class CurrencyHandler
         _primaryCurrency -= amount;
         _totalPrimaryCurrencySpent += amount;
 
-        if(_totalPrimaryCurrencySpent >= 5)
+        if(_totalPrimaryCurrencySpent >= 10)
         {
             AddCurrency_Secondary(_totalPrimaryCurrencySpent / 5);
             _totalPrimaryCurrencySpent %= 5;

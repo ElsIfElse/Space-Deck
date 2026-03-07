@@ -24,6 +24,7 @@ public class MenuCardDetailUiHandler : IUiHandler
 
     public void ShowCardDetail(BaseCardData data)
     {
+        if(data is Tyniro) Debug.Log($"Data in slot info: {data.CardName}, {data.ManaCost}, {data.CardValue}, {data.EffectDescription_01}, {(data as Tyniro).IsSecondUpgradeUnlocked}");
         _cardDetailPanel.SetActive(true);
         SetDisplayText(data);
     }

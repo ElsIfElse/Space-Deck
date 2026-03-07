@@ -23,6 +23,11 @@ MonoBehaviour:
     UpgradeDescription: Increase card value by 1.
     UpgradeName: Blinding Light
     CurrencyType: 0
+  - UpgradeCost: 5
+    UpgradeDescription: 'Unlock: When this card is played and your hand is empty
+      this card''s value is counted 2x this turn. '
+    UpgradeName: Hidden strength
+    CurrencyType: 1
   CardType: 0
   CanUseUpgrade_01: 1
   CanUseUpgrade_02: 1

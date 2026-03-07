@@ -10881,6 +10881,7 @@ MonoBehaviour:
   TransitionHandlerData:
     BlackFadeImg: {fileID: 1420016971}
     Camera: {fileID: 2095418646}
+  IsGuiOn: 1
 --- !u!1 &1673588403
 GameObject:
   m_ObjectHideFlags: 0
