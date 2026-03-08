@@ -19,13 +19,13 @@ MonoBehaviour:
   CardValue: 1
   CardFront: {fileID: 21300000, guid: 80568395acb1ae04a9191f2dc07439b9, type: 3}
   CardUpgrades:
-  - UpgradeCost: 5
-    UpgradeDescription: Decrease card play cost by 1
-    UpgradeName: Eclipse
-    CurrencyType: 0
   - UpgradeCost: 2
     UpgradeDescription: Increase card value by 1.
     UpgradeName: Eclipse Hammer
+    CurrencyType: 0
+  - UpgradeCost: 5
+    UpgradeDescription: Decrease card play cost by 1
+    UpgradeName: Eclipse
     CurrencyType: 0
   CardType: 6
   CanUseUpgrade_01: 1

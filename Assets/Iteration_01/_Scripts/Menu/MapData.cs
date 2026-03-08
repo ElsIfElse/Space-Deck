@@ -6,4 +6,5 @@ public class MapData : ScriptableObject
     public int TargetPoints;
     public string MapName; 
     public AudioType Score;
+    public Sprite MapSprite;
 }

@@ -9,15 +9,20 @@ public class TurnUiHandler : IUiHandler
     public TextMeshProUGUI _cardsPlayedThisTurnCounterText;
     Button _endTurnButton;
     Image _turnPanelBg;
+    Button _endRunButton;
+    GameplayUiManager _gameplayUiManager;
 
-    public TurnUiHandler(TurnUiHandlerData data)
+    public TurnUiHandler(TurnUiHandlerData data,GameplayUiManager gameplayUiManager)
     {
         _turnCounterText = data.TurnCounterText;
         _cardsPlayedThisTurnCounterText = data.CardsPlayedThisTurnCounterText;
         _endTurnButton = data.EndTurnButton;
         _turnPanelBg = data.TurnPanelBg;
+        _endRunButton = data.EndRunButton;
+        _gameplayUiManager = gameplayUiManager;
 
         _endTurnButton.onClick.AddListener(ActionManager.Instance.OnEndTurn);
+        _endRunButton.onClick.AddListener(()=>_gameplayUiManager.RunRoutine(ActionManager.Instance.GameplayEndTurn.OnGameLost()));
     }
 
     public void UpdateTurnCounter(int currentTurn, int maxTurn)
@@ -37,6 +42,7 @@ public class TurnUiHandler : IUiHandler
             _endTurnButton.gameObject.SetActive(true);
             _turnPanelBg.gameObject.SetActive(true);
             _cardsPlayedThisTurnCounterText.gameObject.SetActive(true);
+            _endRunButton.gameObject.SetActive(true);
             
         }
         else
@@ -45,6 +51,7 @@ public class TurnUiHandler : IUiHandler
             _endTurnButton.gameObject.SetActive(false);
             _turnPanelBg.gameObject.SetActive(false);
             _cardsPlayedThisTurnCounterText.gameObject.SetActive(false);
+            _endRunButton.gameObject.SetActive(false);
         }
     }
 }
@@ -56,4 +63,5 @@ public struct TurnUiHandlerData
     public TextMeshProUGUI CardsPlayedThisTurnCounterText;
     public Button EndTurnButton;
     public Image TurnPanelBg;
+    public Button EndRunButton;
 }

@@ -23,6 +23,7 @@ public class GameStateManager : MonoBehaviour
     public TransitionHandlerData TransitionHandlerData;
     public GlobalValues GlobalValues;
     public bool IsGuiOn;
+    public bool HasTutorialBeenPlayed = false;
 
     #region Save/Load
     void LoadSaveData()
@@ -34,14 +35,17 @@ public class GameStateManager : MonoBehaviour
             PlayerDeckHandler.Instance.OnFirstLoad();
             MenuManager.Instance.CurrencyHandler.OnFirstLoad();
             Debug.Log("No data found. First Load.");
-
         }
         else
         {
             MenuManager.Instance.CurrencyHandler.OnLoadSaveData(data);
             PlayerDeckHandler.Instance.OnLoadingSavedData(data);
+            HasTutorialBeenPlayed = data.HasTutorialBeenPlayed;
             Debug.Log("Data Loaded!");
         }
+
+        if(!HasTutorialBeenPlayed) GameplayUiManager.Instance.TutorialUiHandler.ShowNextPanel();
+        // GameplayUiManager.Instance.TutorialUiHandler.ShowNextPanel();
 
         MenuManager.Instance.MenuSlotHandler.SetMenuSlots(true);
     }
@@ -53,7 +57,7 @@ public class GameStateManager : MonoBehaviour
 
     void OnGameStart()
     {
-        Application.targetFrameRate = 144;
+        Application.targetFrameRate = 144; 
         CreateSubHandlers();
         Initialize_SingletonManagers();
         Initialize_GameStateManager(); 

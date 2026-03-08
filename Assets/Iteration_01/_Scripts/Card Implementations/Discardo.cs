@@ -44,6 +44,7 @@ public class Discardo : BaseCardData
         _effectMultiplier = data.EffectMultiplier;
         
         CardUpgrades[0].UpgradeCost = data.UpgradeCost_01;
+        SetDescription_Effect_01();
     }
 
     public DiscardoSaveData GetSaveData()

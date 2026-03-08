@@ -5,11 +5,16 @@
   <Project Path="VolFx.csproj" />
   <Project Path="ScreenFx.csproj" />
   <Project Path="VolFx.Editor.csproj" />
+  <Project Path="Febucci.TextAnimatorForUnity.Runtime.csproj" />
   <Project Path="VolFx.Transitions.csproj" />
   <Project Path="Assembly-CSharp-firstpass.csproj" />
+  <Project Path="Febucci.TextAnimatorForUnity.UITk.Runtime.csproj" />
   <Project Path="VolFx.Samples.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="Febucci.TextAnimatorForUnity.TMP.Runtime.csproj" />
   <Project Path="Tools.Runtime.csproj" />
+  <Project Path="Febucci.Attributes.Runtime.csproj" />
   <Project Path="Assembly-CSharp-Editor-firstpass.csproj" />
   <Project Path="ScreenFx.Samples.csproj" />
+  <Project Path="Febucci.TextAnimatorForUnity.Input.Runtime.csproj" />
 </Solution>

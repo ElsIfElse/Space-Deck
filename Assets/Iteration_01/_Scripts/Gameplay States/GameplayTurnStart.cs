@@ -31,6 +31,8 @@ public class GameplayTurnStart : IGameplayState
 
     public IEnumerator DrawCards(bool isTurnStart = true,int amount = 4)
     {
+        if(!GameStateManager.Instance.HasTutorialBeenPlayed) yield return new WaitUntil(() => GameplayUiManager.Instance.TutorialUiHandler.IsFirstListDone);
+
         SetCanInteract(false);
         _cardEffects.ResetCardsPlayedThisTurn();
         if(debug) Debug.Log("Drawing cards");
@@ -82,11 +84,8 @@ public class GameplayTurnStart : IGameplayState
         }
         yield return null;
         SetCanInteract(true);
-    }
 
-    void Setcards()
-    {
-        
+        GameplayUiManager.Instance.TutorialUiHandler.ShowNextPanel();
     }
     void MoveCardToSlotPosition(Card card, GameplayCardSlot slot)
     {

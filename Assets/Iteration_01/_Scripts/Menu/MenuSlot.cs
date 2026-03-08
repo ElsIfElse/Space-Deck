@@ -44,8 +44,8 @@ public class MenuSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
 
         SetCardVisual(_cardVisualSprite);
 
-        CardCostText.text = _dataInSlot.ManaCost.ToString();
-        CardValueText.text = _dataInSlot.CardValue.ToString();
+        CardCostText.text = "<sprite name=oxygen>" + _dataInSlot.ManaCost.ToString();
+        CardValueText.text = "<sprite name=resource>" + _dataInSlot.CardValue.ToString();
 
         baseCardData.SetCardUpgrades(this);
 

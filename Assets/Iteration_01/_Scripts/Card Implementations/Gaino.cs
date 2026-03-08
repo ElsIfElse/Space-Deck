@@ -28,7 +28,7 @@ public class Gaino : BaseCardData,ILockedCard
     // }
 
 
-    public override void Upgrade_01(MenuSlot menuSlot)
+    public override void Upgrade_02(MenuSlot menuSlot)
     {
         Upgrade upgrade = CardUpgrades[0];
         if(!CanAfford(upgrade,menuSlot)) return;
@@ -37,7 +37,7 @@ public class Gaino : BaseCardData,ILockedCard
         SpendCurrency(upgrade);
         OnUpgrade_Post(menuSlot);
     }
-    public override void Upgrade_02(MenuSlot menuSlot)
+    public override void Upgrade_01(MenuSlot menuSlot)
     {
         Upgrade upgrade = CardUpgrades[1];
         if(!CanAfford(upgrade,menuSlot)) return;

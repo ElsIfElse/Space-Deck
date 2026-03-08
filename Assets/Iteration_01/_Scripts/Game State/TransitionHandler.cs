@@ -20,7 +20,8 @@ public class TransitionHandler
             return _blackFadeTime + _cameraEffectTime;
         }
     } 
-
+    Vector3 _originalPosition;
+    float _zooomingInValue;
     CinemachineCamera _camera;
     CinemachineVolumeSettings _volume;
     PixelationVol _pixelation;
@@ -38,14 +39,13 @@ public class TransitionHandler
     {
         Debug.Log("Transitioning..");
         UseCameraEffect(true);
-        yield return new WaitForSeconds(_cameraEffectTime / 2);
-
+        _camera.transform.DOMove(_camera.transform.position + Vector3.forward * _zooomingInValue, _cameraEffectTime / 2 + _blackFadeTime);
         _blackFadeImg.DOFade(1,_blackFadeTime);
-        yield return new WaitForSeconds(_blackFadeTime);
 
+        yield return new WaitForSeconds(_cameraEffectTime + _blackFadeTime);
+
+        _camera.transform.DOMove(_originalPosition, _cameraEffectTime / 2);
         _blackFadeImg.DOFade(0,_blackFadeTime);
-        yield return new WaitForSeconds(_cameraEffectTime / 2);
-
         UseCameraEffect(false);
         Debug.Log("Transition done!");
     }

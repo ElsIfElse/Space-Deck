@@ -75,7 +75,7 @@ public class GameplayEndTurn : IGameplayState
         SaveManager.Instance.SaveData();
         yield return _coroutineHelper.StartRoutine(GameStateManager.Instance.ChangeState(GameStateEnum.Menu));
     }
-    IEnumerator OnGameLost()
+    public IEnumerator OnGameLost()
     {
         SaveManager.Instance.SaveData();
         MenuManager.Instance.CurrencyHandler.AddCurrency_Primary(PointCounterManager.Instance.CurrentPoints / 5);

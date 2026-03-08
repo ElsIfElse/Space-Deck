@@ -4,13 +4,13 @@ public class CurrencyHandler
 {
     int _primaryCurrency;
     int _secondaryCurrency;
-    int _totalPrimaryCurrencySpent;
+    int _totalUpgradesPurchased;
 
     public CurrencyHandler()
     {
         _primaryCurrency = 0;
         _secondaryCurrency = 0;
-        _totalPrimaryCurrencySpent = 0;
+        _totalUpgradesPurchased = 0;
 
         MenuUiManager.Instance.MenuCurrencyUiHandler.UpdateCurrencyText_Primary(_primaryCurrency);
         MenuUiManager.Instance.MenuCurrencyUiHandler.UpdateCurrencyText_Secondary(_secondaryCurrency);
@@ -27,10 +27,10 @@ public class CurrencyHandler
         SetCurrency_Primary(data.PrimaryCurrency);
         SetCurrency_Secondary(data.SecondaryCurrency);
         
-        _totalPrimaryCurrencySpent = data.TotalPrimaryCurrencySpent;
+        _totalUpgradesPurchased++;
     }
 
-    public int TotalPrimaryCurrencySpentCount() => _totalPrimaryCurrencySpent;
+    public int TotalUpgradesPurchased() => _totalUpgradesPurchased;
 
     #region Primary Currency
     public void AddCurrency_Primary(int amount)
@@ -47,12 +47,12 @@ public class CurrencyHandler
     public void SpendCurrency_Primary(int amount)
     {
         _primaryCurrency -= amount;
-        _totalPrimaryCurrencySpent += amount;
+        _totalUpgradesPurchased += amount;
 
-        if(_totalPrimaryCurrencySpent >= 10)
+        if(_totalUpgradesPurchased >= 3)
         {
-            AddCurrency_Secondary(_totalPrimaryCurrencySpent / 5);
-            _totalPrimaryCurrencySpent %= 5;
+            AddCurrency_Secondary(_totalUpgradesPurchased / 3);
+            _totalUpgradesPurchased %= 3;
         }
 
         MenuUiManager.Instance.MenuCurrencyUiHandler.UpdateCurrencyText_Primary(_primaryCurrency);

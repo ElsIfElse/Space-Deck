@@ -43,6 +43,7 @@ public class Handeroo : BaseCardData, ILockedCard
         CardUpgrades[0].UpgradeCost = saveData.UpgradeCost_01;
         IsCardLocked = saveData.IsCardLocked;
         UnlockCost = saveData.UnlockCost;
+        SetDescription_Effect_01();
     }
 
     public HanderooSaveData GetSaveData()

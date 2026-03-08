@@ -26,17 +26,11 @@ public class SaveManager : MonoBehaviour
 
         foreach(BaseCardData card in PlayerDeckHandler.Instance.RuntimeCards)
         {
-            if(card.CardType == CardType.Tyniro)
-            {
-                tyniroList.Add((card as Tyniro).GetSaveData());
-            }
+            if(card.CardType == CardType.Tyniro) tyniroList.Add((card as Tyniro).GetSaveData());
         }
         foreach(BaseCardData card in PlayerDeckHandler.Instance.RuntimeCards)
         {
-            if(card.CardType == CardType.Mediumo)
-            {
-                mediumoList.Add((card as Mediumo).GetSaveData());
-            }
+            if(card.CardType == CardType.Mediumo) mediumoList.Add((card as Mediumo).GetSaveData());
         }
 
         // Create save class object
@@ -45,7 +39,8 @@ public class SaveManager : MonoBehaviour
             // Add data to object
             PrimaryCurrency = MenuManager.Instance.CurrencyHandler.CurrencyCount_Primary(),
             SecondaryCurrency = MenuManager.Instance.CurrencyHandler.CurrencyCount_Secondary(),
-            TotalPrimaryCurrencySpent = MenuManager.Instance.CurrencyHandler.TotalPrimaryCurrencySpentCount(),
+            TotalUpgradesPurchased = MenuManager.Instance.CurrencyHandler.TotalUpgradesPurchased(),
+            HasTutorialBeenPlayed = GameStateManager.Instance.HasTutorialBeenPlayed,
             
             DiscardoSaveData = (PlayerDeckHandler.Instance.GetCard(CardType.Discardo) as Discardo).GetSaveData(),
             DuppoSaveData = (PlayerDeckHandler.Instance.GetCard(CardType.Duppo) as Duppo).GetSaveData(),

@@ -5,7 +5,9 @@ public class GameplayState : GameState
 {
     public override void OnEnter()
     {
+        MapData currentMap = MenuUiManager.Instance.ChooseLevelUiHandler.ChoosenMap;
         GameplayUiManager.Instance.ShowGameplayUi();
+        GameplayUiManager.Instance.StarMover.SetImageSprite(currentMap.MapSprite);
         ActionManager.Instance.StartGame();
     }
 

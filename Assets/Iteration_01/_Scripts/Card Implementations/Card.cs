@@ -64,6 +64,6 @@ public class Card : MonoBehaviour
     }
     void SetcardType(CardType type) => CardType = type;
 
-    void UpdateManaText() => ManaCostText.text = ManaCost.ToString();
-    public void UpdateValueText() => ValueCostText.text = CardValue.ToString();
+    void UpdateManaText() => ManaCostText.text = "<sprite name=oxygen>" + ManaCost.ToString();
+    public void UpdateValueText() => ValueCostText.text = "<sprite name=resource>" +CardValue.ToString();
 }

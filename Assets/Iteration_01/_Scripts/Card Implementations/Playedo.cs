@@ -43,6 +43,7 @@ public class Playedo : BaseCardData
         _effectMultiplier = saveData.EffectMultiplier;
 
         CardUpgrades[0].UpgradeCost = saveData.UpgradeCost_01;
+        SetDescription_Effect_01();
     }
 
     public PlayedoSaveData GetSaveData()

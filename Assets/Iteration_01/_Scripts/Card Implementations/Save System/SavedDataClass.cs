@@ -6,7 +6,8 @@ public class SavedDataClass
 {
     public int PrimaryCurrency;
     public int SecondaryCurrency;
-    public int TotalPrimaryCurrencySpent;
+    public int TotalUpgradesPurchased;
+    public bool HasTutorialBeenPlayed;
 
     public List<TyniroSaveData> TyniroSaveDatas = new List<TyniroSaveData>();
     public List<MediumoSaveData> MediumoSaveDatas = new List<MediumoSaveData>();

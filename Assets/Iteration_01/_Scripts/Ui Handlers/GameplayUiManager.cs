@@ -43,6 +43,9 @@ public class GameplayUiManager : MonoBehaviour
     public AnimationSpeedUiHandler AnimationSpeedUiHandler;
     public AnimationSpeedUiHandlerData AnimationSpeedUiHandlerData;
 
+    public TutorialUiHandler TutorialUiHandler;
+    public TutorialUiManagerData TutorialUiManagerData;
+
     List<IUiHandler> _uiHandlers = new();
 
     public Image InfoPanelBg;
@@ -57,12 +60,13 @@ public class GameplayUiManager : MonoBehaviour
         ManaUiHandler = new(ManaUiHandlerData);
         LocationInfoUiHandler = new(LocationInfoUiHandlerData);
         PointUiHandler = new(PointUiHandlerData);
-        TurnUiHandler = new(TurnUiHandlerData);      
+        TurnUiHandler = new(TurnUiHandlerData,this);      
         StarMover = new(StarMoverData, this);
         HandUiManager = new(HandUiData);
         DeckUiHandler = new(DeckUiData);
         DiscardPileUiHandler = new(DiscardPileUiData);
         AnimationSpeedUiHandler = new(AnimationSpeedUiHandlerData);
+        TutorialUiHandler = new(TutorialUiManagerData,this);
 
         _uiHandlers.Add(ManaUiHandler);
         _uiHandlers.Add(LocationInfoUiHandler);

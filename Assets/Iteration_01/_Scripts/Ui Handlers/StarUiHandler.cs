@@ -79,6 +79,11 @@ public class StarUiHandler : IUiHandler
             HideStars();
         }
     }
+
+    public void SetImageSprite(Sprite sprite)
+    {
+        StarImg.sprite = sprite;
+    }
 }
 
 [Serializable]
