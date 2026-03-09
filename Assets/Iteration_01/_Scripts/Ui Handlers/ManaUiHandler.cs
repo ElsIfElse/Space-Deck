@@ -15,7 +15,7 @@ public class ManaUiHandler : IUiHandler
 
     public void UpdateCurrentMana(int amount)
     {
-        _currentManaText.text = "O<size=15>2:</size> " + amount.ToString();
+        _currentManaText.text = "<sprite name=oxygen>" + amount.ToString();
     }
 
     public void GainManaEffect()
