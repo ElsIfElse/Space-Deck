@@ -26,7 +26,7 @@ public class GamePLayStart : IGameplayState
     public IEnumerator StartGamePlayRoutine()
     {
         SetCanInteract(false);
-        AudioManager.Instance.PlayScore(MenuUiManager.Instance.ChooseLevelUiHandler.ChoosenMap.Score);
+        AudioManager.Instance.PlayScore(MenuUiManager.Instance.ChooseLevelPanelUiHandler.ChoosenMap.Score);
         InitializeSystems();
         SetCards();
         yield return new WaitForSeconds(1f);

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TutorialMap
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   TargetPoints: 10
-  MapName: Crimson Drift Nebula
+  MapName: Onboarding Simulation
   Score: 9
   MapSprite: {fileID: 21300000, guid: e88d8ea30750fbd4296f2d501aabc6bb, type: 3}
+  IsMapLocked: 0

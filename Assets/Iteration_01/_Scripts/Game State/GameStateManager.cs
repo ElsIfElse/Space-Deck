@@ -24,6 +24,7 @@ public class GameStateManager : MonoBehaviour
     public GlobalValues GlobalValues;
     public bool IsGuiOn;
     public bool HasTutorialBeenPlayed = false;
+    public bool WasGameLost;
 
     #region Save/Load
     void LoadSaveData()

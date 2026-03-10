@@ -11,8 +11,11 @@ public class Gaino : BaseCardData,ILockedCard
 
     public override IEnumerator CardEffect(CardVfx cardVfx, Card card = null)
     {
-        GainValueSequence(cardVfx,card);
-        yield return new WaitForSeconds(1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+        if(CardValue > 0)
+        {
+            GainValueSequence(cardVfx,card);
+            yield return new WaitForSeconds(1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+        }
 
         ActionManager.Instance.ManaHandler.GainMana(ManaToGain);
         AudioManager.Instance.Play(AudioType.ManaGained,0,true);

@@ -72,14 +72,14 @@ public class GameplayEndTurn : IGameplayState
     }
     IEnumerator OnGameWon()
     {
+        GameStateManager.Instance.WasGameLost = false;
         SaveManager.Instance.SaveData();
         yield return _coroutineHelper.StartRoutine(GameStateManager.Instance.ChangeState(GameStateEnum.Menu));
     }
     public IEnumerator OnGameLost()
     {
-        SaveManager.Instance.SaveData();
-        MenuManager.Instance.CurrencyHandler.AddCurrency_Primary(PointCounterManager.Instance.CurrentPoints / 5);
-        yield return _coroutineHelper.StartRoutine(GameStateManager.Instance.ChangeState(GameStateEnum.Menu));
+        GameStateManager.Instance.WasGameLost = true;
+        yield return _coroutineHelper.StartRoutine(GameStateManager.Instance.TransitionHandler.OnGameLost());
     }
     void MoveCardToSlotPosition(Card card, GameplayCardSlot slot) => CardMover.Instance.MoveCardToSlotPosition(card,slot);
 }

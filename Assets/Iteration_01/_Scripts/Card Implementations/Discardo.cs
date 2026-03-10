@@ -8,8 +8,11 @@ public class Discardo : BaseCardData
     public override IEnumerator CardEffect(CardVfx cardVfx, Card card = null)
     {
         int originalValue = card.CardValue;
-        GainValueSequence(cardVfx,card);
-        yield return new WaitForSeconds(1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+        if(card.CardValue > 0)
+        {
+            GainValueSequence(cardVfx,card);
+            yield return new WaitForSeconds(1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+        }
 
         card.CardValue = ActionManager.Instance.DiscardPileManager.DeckCount() * _effectMultiplier;
         GainValueSequence(cardVfx,card);

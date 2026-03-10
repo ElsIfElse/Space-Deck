@@ -11,8 +11,12 @@ public class Handeroo : BaseCardData, ILockedCard
 
     public override IEnumerator CardEffect(CardVfx cardVfx, Card card = null)
     {
-        GainValueSequence(cardVfx,card);
-        yield return new WaitForSeconds(1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+        if(CardValue > 0)
+        {
+            GainValueSequence(cardVfx,card);
+            yield return new WaitForSeconds(1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+        }
+        
         yield return ActionManager.Instance.StartRoutine(ActionManager.Instance.CardEffects.ChangeHand(AdditionalCardsToBeDrawn));
     }
 

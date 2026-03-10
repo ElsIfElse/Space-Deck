@@ -4,17 +4,22 @@ using UnityEngine;
 public class MenuState : GameState
 {
     public override void OnEnter()
-    {
+    {   
+        MenuManager.Instance.CurrencyHandler.AddCurrency_Primary(PointCounterManager.Instance.CurrentPoints / 5);
+        PointCounterManager.Instance.ResetPoints();
+        SaveManager.Instance.SaveData();
         AudioManager.Instance.PlayScore(AudioType.Score_01) ;
         MenuManager.Instance.MenuSlotHandler.ShowMenuSlots(true);
         MenuUiManager.Instance.ShowMenuUi();
+        
+        GameStateManager.Instance.StartCoroutine(GameStateManager.Instance.TransitionHandler.CameraEffect_Off());
     }
 
     public override IEnumerator OnExit()
     {
-        _gameStateManager.StartCoroutine(_gameStateManager.TransitionHandler.OnTransition());
-        yield return new WaitForSeconds(_gameStateManager.TransitionHandler.TransitionTime);
+        yield return GameStateManager.Instance.StartCoroutine(GameStateManager.Instance.TransitionHandler.CameraEffect_On());
         MenuManager.Instance.MenuSlotHandler.HideMenuSlots();
+        MenuManager.Instance.MenuSlotHandler.TurnOffSlotLight();
         MenuUiManager.Instance.HideMenuUi();
     }
 

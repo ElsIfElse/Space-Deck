@@ -7,4 +7,5 @@ public class MapData : ScriptableObject
     public string MapName; 
     public AudioType Score;
     public Sprite MapSprite;
+    public bool IsMapLocked;
 }

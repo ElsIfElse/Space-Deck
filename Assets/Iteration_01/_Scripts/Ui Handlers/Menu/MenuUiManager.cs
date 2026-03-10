@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MenuUiManager : MonoBehaviour {
@@ -39,6 +40,9 @@ public class MenuUiManager : MonoBehaviour {
     public ViewChangeHandler ViewChangeHandler;
     public ViewChangeHandlerData ViewChangeHandlerData;
 
+    public ChooseLevelPanelUiHandler ChooseLevelPanelUiHandler;
+    public ChooseLevelPanelUiHanderData ChooseLevelPanelUiHanderData;
+
 
     List<IUiHandler> _subhandlers = new();
 
@@ -47,6 +51,7 @@ public class MenuUiManager : MonoBehaviour {
         CreateHandlers();
 
         SettingsMenuHandler.SetState(false);
+        ChooseLevelPanelUiHandler.SetState(false);
     }
     void CreateHandlers()
     {
@@ -57,22 +62,25 @@ public class MenuUiManager : MonoBehaviour {
         GameStartUiHandler = new(GameStartUiHandlerData);
         SettingsMenuHandler = new(SettingsMenuHandlerData);
         ViewChangeHandler = new(ViewChangeHandlerData, MenuManager.Instance.MenuSlotHandler,MenuCardUpgradeUiHandler);
-        ChooseLevelUiHandler = new(ChooseLevelHandlerData, this,ViewChangeHandler,MenuCardUpgradeUiHandler);
-        
+        ChooseLevelPanelUiHandler = new(ChooseLevelPanelUiHanderData,MenuCardUpgradeUiHandler,ViewChangeHandler);
+        ChooseLevelUiHandler = new(ChooseLevelHandlerData,ViewChangeHandler,MenuCardUpgradeUiHandler,ChooseLevelPanelUiHandler);
 
         _subhandlers.Add(MenuCurrencyUiHandler);
         _subhandlers.Add(GameStartUiHandler);
         _subhandlers.Add(MenuStarMover);
-        _subhandlers.Add(ChooseLevelUiHandler);
         _subhandlers.Add(ViewChangeHandler);
+        _subhandlers.Add(ChooseLevelUiHandler);
+        // _subhandlers.Add(ChooseLevelPanelUiHandler);
     }
 
     public void HideMenuUi()
     {
         foreach(IUiHandler handler in _subhandlers) handler.SetState(false);
+
         MenuCardDetailUiHandler.SetState(false);
         MenuCardUpgradeUiHandler.SetState(false);
-        SettingsMenuHandler.SetState(false);    
+        SettingsMenuHandler.SetState(false);  
+        ChooseLevelPanelUiHandler.SetState(false);  
     }
 
     public void ShowMenuUi()

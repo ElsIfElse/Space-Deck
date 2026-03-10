@@ -11,8 +11,11 @@ public class Forger : BaseCardData
     
     public override IEnumerator CardEffect(CardVfx cardVfx, Card card = null)
     {
-        GainValueSequence(cardVfx,card);
-        yield return new WaitForSeconds(1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+        if(CardValue > 0)
+        {
+            GainValueSequence(cardVfx,card);
+            yield return new WaitForSeconds(1f / GameStateManager.Instance.GlobalValues.AnimationSpeed);
+        }
         
         ActionManager.Instance.CardEffects.StrengthenRandomCard(StrengtheningAmount_01);
         AudioManager.Instance.Play(AudioType.ForgerBell);

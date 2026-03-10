@@ -9,188 +9,62 @@ using UnityEngine.UI;
 
 public class ChooseLevelUiHandler : IUiHandler
 {
-    MapData _map01;
-    MapData _map02; 
 
-    float _fadeTime = 0.1f;
-
-    Button _startGameButton;
-    Button _chooseMapButton01;
-    Image _chooseMapButton01Image;
-    Button _chooseMapButton02;
-    Image _chooseMapButton02Image;
-    Button _backToCardsButton;
     Button _toMapChoiceButton;
-
-    TextMeshProUGUI _choosenMapNameText;
-
-    Tween _map01_ColorTween;
-    Tween _map02_ColorTween;
-    
-    List<Button> _mapButtons = new();
-
-    GameObject _chooseMapPanel;
-    MenuUiManager _coroutineHelper;
-    MapData _choosenMap; public MapData ChoosenMap => _choosenMap;
     ViewChangeHandler _viewChangeHandler;
     MenuCardUpgradeUiHandler _menuCardUpgradeUiHandler;
+    ChooseLevelPanelUiHandler _chooseLevelPanelUiHandler;
 
-    public ChooseLevelUiHandler(ChooseLevelHandlerData data, MenuUiManager coroutineHelper, ViewChangeHandler viewChangeHandler, MenuCardUpgradeUiHandler menuCardUpgradeUiHandler)
+
+
+    public ChooseLevelUiHandler(ChooseLevelHandlerData data, ViewChangeHandler viewChangeHandler, MenuCardUpgradeUiHandler menuCardUpgradeUiHandler, ChooseLevelPanelUiHandler chooseLevelPanelUiHandler)
     {
-        _map01 = data.Map01; 
-        _map02 = data.Map02; 
-
-        _startGameButton = data.StartGameButton;
-        _chooseMapButton01 = data.ChooseMapButton01;
-        _chooseMapButton02 = data.ChooseMapButton02;
-        _backToCardsButton = data.BackToCardsButton;
-        _toMapChoiceButton = data.ToMapChoiceButton;
-
-        _chooseMapButton01Image = data.ChooseMapButton01Image;
-        _chooseMapButton02Image = data.ChooseMapButton02Image;
-
-        _coroutineHelper = coroutineHelper;
         _viewChangeHandler = viewChangeHandler;
         _menuCardUpgradeUiHandler = menuCardUpgradeUiHandler;
+        _chooseLevelPanelUiHandler = chooseLevelPanelUiHandler;
 
-
-        _chooseMapPanel = data.ChooseMapPanel;
-
-        _choosenMapNameText = data.ChoosenMapNameText;
-        
-        _mapButtons.Add(_chooseMapButton01);
-        _mapButtons.Add(_chooseMapButton02); 
-
-        _chooseMapButton01.onClick.AddListener(HandleMapButtonClick_01);
-        _chooseMapButton02.onClick.AddListener(HandleMapButtonClick_02);
-
-        _backToCardsButton.onClick.AddListener(HandleBackToCardsButtonClick);
+        _toMapChoiceButton = data.ToMapChoiceButton;
         _toMapChoiceButton.onClick.AddListener(HandleChooseMapButtonClick);
-
-        _startGameButton.onClick.AddListener(HandleStartGameButtonClick);
-
-        _choosenMapNameText.text = "";
-
-        DeselectButtons();
-    }
-
-    void HandleStartGameButtonClick()
-    {
-        if(_choosenMap == null)
-        {   
-            _choosenMapNameText.text = "<color=red>No map choosen</color>";
-            return;
-        }
-
-        _coroutineHelper.StartRoutine(GameStateManager.Instance.ChangeState(GameStateEnum.GamePlay));
-    }
-
-    public void SetState(bool state)
-    {
-        if(state)
-        {
-            _choosenMapNameText.text = "";
-            _chooseMapPanel.SetActive(false);
-            _toMapChoiceButton.gameObject.SetActive(true);
-        }
-        else
-        {
-            _choosenMapNameText.text = "";
-            _chooseMapPanel.SetActive(false);
-            _toMapChoiceButton.gameObject.SetActive(false);
-        }
-    }
-
-    void HandleMapButtonClick_01()
-    {
-        AudioManager.Instance.Play(AudioType.Click,0,true);
-        MenuUiManager.Instance.StartRoutine(SelectButton(_chooseMapButton01Image));
-        _choosenMap = _map01;
-        _choosenMapNameText.text = _map01.MapName;
-    }
-    void HandleMapButtonClick_02()
-    {
-        AudioManager.Instance.Play(AudioType.Click,0,true);
-        MenuUiManager.Instance.StartRoutine(SelectButton(_chooseMapButton02Image));
-        _choosenMap = _map02;
-        _choosenMapNameText.text = _map02.MapName;
     }
 
     void HandleChooseMapButtonClick()
     {
         AudioManager.Instance.Play(AudioType.Click,0,true);
-        _choosenMapNameText.text = "";
-        SetchooseMapPanelState(true);
+        _chooseLevelPanelUiHandler.SetState(true);
         _viewChangeHandler.SetState(false);
+        MenuUiManager.Instance.ChooseLevelPanelUiHandler.SetState(true);
     }
 
-    void HandleBackToCardsButtonClick()
-    {
-        AudioManager.Instance.Play(AudioType.Click,0,true);
-        _choosenMapNameText.text = "";
-        SetchooseMapPanelState(false);
-        _viewChangeHandler.SetState(true);
-    }
 
-    public void SetchooseMapPanelState(bool state)
+    public void SetState(bool state)
     {
-        DeselectButtons();
-
         if(state)
         {
-            _chooseMapPanel.SetActive(true);
-            _menuCardUpgradeUiHandler.SetState(false); 
-            MenuManager.Instance.MenuSlotHandler.HideMenuSlots();
+            _toMapChoiceButton.gameObject.SetActive(true);
         }
         else
         {
-            _chooseMapPanel.SetActive(false);
-            MenuManager.Instance.MenuSlotHandler.HideMenuSlots();
-            MenuManager.Instance.MenuSlotHandler.SetMenuSlots(true);
+            _toMapChoiceButton.gameObject.SetActive(false);
         }
     }
 
-    public void DeselectButtons()
-    {
-        _map01_ColorTween?.Kill();
-        _map02_ColorTween?.Kill();
+    // public void DeselectButtons()
+    // {
+    //     _map01_ColorTween?.Kill();
+    //     _map02_ColorTween?.Kill();
 
-        // _map01_ColorTween = _chooseMapButton01.image.material.DOColor(Color.white,_fadeTime);
-        // _map02_ColorTween = _chooseMapButton02.image.material.DOColor(Color.white,_fadeTime);
+    //     // _map01_ColorTween = _chooseMapButton01.image.material.DOColor(Color.white,_fadeTime);
+    //     // _map02_ColorTween = _chooseMapButton02.image.material.DOColor(Color.white,_fadeTime);
 
-        _chooseMapButton01Image.material.DOColor(Color.white,_fadeTime);
-        _chooseMapButton02Image.material.DOColor(Color.white,_fadeTime);
+    //     _chooseMapButton01Image.material.DOColor(Color.white,_fadeTime);
+    //     _chooseMapButton02Image.material.DOColor(Color.white,_fadeTime);
 
-        _choosenMap = null;
-    }
-
-    IEnumerator SelectButton(Image image)
-    {
-        DeselectButtons();
-        yield return new WaitForSeconds(_fadeTime);
-        image.material.DOColor(Color.blueViolet,_fadeTime);
-    }
-
-    public void SetChoosenMapData(MapData mapData)
-    {
-        _choosenMap = mapData;
-    }
+    //     _choosenMap = null;
+    // }
 }
 
 [Serializable]
 public struct ChooseLevelHandlerData
 {
-    public Button StartGameButton;
     public Button ToMapChoiceButton;
-    public Button ChooseMapButton01;
-    public Image ChooseMapButton01Image;
-    public Button ChooseMapButton02;
-    public Image ChooseMapButton02Image;
-    public Button BackToCardsButton;
-
-    public MapData Map01; 
-    public MapData Map02; 
-
-    public TextMeshProUGUI ChoosenMapNameText;
-    public GameObject ChooseMapPanel;
 }

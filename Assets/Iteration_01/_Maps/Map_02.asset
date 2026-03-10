@@ -16,3 +16,4 @@ MonoBehaviour:
   MapName: Crimson Drift Nebula
   Score: 9
   MapSprite: {fileID: 21300000, guid: b6bdd5a17f2cd8c418a21c2b3e0962f9, type: 3}
+  IsMapLocked: 1

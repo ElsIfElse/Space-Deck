@@ -37,12 +37,13 @@ public class TutorialUiHandler
 
     private void HandleDontPlayTutorialButtonPress()
     {
+        GameStateManager.Instance.HasTutorialBeenPlayed = true;
         _tutorialPanelCollectorObj.SetActive(false);
     }
 
     void HandlePlayTutorialButtonPress()
     {
-        MenuUiManager.Instance.ChooseLevelUiHandler.SetChoosenMapData(_tutorialMap);
+        MenuUiManager.Instance.ChooseLevelPanelUiHandler.SetChoosenMapFromData(_tutorialMap);
         GameplayUiManager.Instance.RunRoutine(GameStateManager.Instance.ChangeState(GameStateEnum.GamePlay));
         ShowNextPanel();
     }

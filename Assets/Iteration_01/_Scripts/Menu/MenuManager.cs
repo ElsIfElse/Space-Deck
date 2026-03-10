@@ -36,6 +36,13 @@ public class MenuManager : MonoBehaviour
         CurrencyHandler = new();
     }
 
+    public GameObject CreateGameObject(GameObject prefab, string objName)
+    {
+        GameObject obj = Instantiate(prefab);
+        obj.name = objName;
+        return obj;
+    }
+
     // private void OnGUI() 
     // {
     //     if(GUI.Button(new Rect(0,0,100,75), "Deck")) MenuSlotHandler.SetMenuSlots(true);   

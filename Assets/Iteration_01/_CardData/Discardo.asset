@@ -15,7 +15,7 @@ MonoBehaviour:
   CardName: Discardo
   EffectDescription_01: 
   EffectDescription_02: 
-  ManaCost: 3
+  ManaCost: 2
   CardValue: 0
   CardFront: {fileID: 21300000, guid: 0531175bf508bfe4893a695f495af1df, type: 3}
   CardUpgrades:

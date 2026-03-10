@@ -21,10 +21,10 @@ public class PointCounterManager : MonoBehaviour
     {
         CurrentPoints = 0;
 
-        if(MenuUiManager.Instance.ChooseLevelUiHandler.ChoosenMap != null) Debug.Log("Choosen map is: " + MenuUiManager.Instance.ChooseLevelUiHandler.ChoosenMap.MapName);
+        if(MenuUiManager.Instance.ChooseLevelPanelUiHandler.ChoosenMap != null) Debug.Log("Choosen map is: " + MenuUiManager.Instance.ChooseLevelPanelUiHandler.ChoosenMap.MapName);
         else Debug.Log("No map choosen");
 
-        PointsNeededForWin = MenuUiManager.Instance.ChooseLevelUiHandler.ChoosenMap.TargetPoints;
+        PointsNeededForWin = MenuUiManager.Instance.ChooseLevelPanelUiHandler.ChoosenMap.TargetPoints;
         UpdatePointCounterText();
     }
 
@@ -37,5 +37,6 @@ public class PointCounterManager : MonoBehaviour
 
     void UpdatePointCounterText() => GameplayUiManager.Instance.PointUiHandler.UpdatePointCounterText(CurrentPoints, PointsNeededForWin);
     void IndicatePointGain(int amount) => GameplayUiManager.Instance.PointUiHandler.GainPointSequence(amount);
+    public void ResetPoints() => CurrentPoints = 0;
 
 }

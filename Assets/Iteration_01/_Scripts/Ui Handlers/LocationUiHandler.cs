@@ -29,7 +29,7 @@ public class LocationInfoUiHandler : IUiHandler
 
     public void Initialize()
     {
-        SetLocationText(MenuUiManager.Instance.ChooseLevelUiHandler.ChoosenMap.MapName);
+        SetLocationText(MenuUiManager.Instance.ChooseLevelPanelUiHandler.ChoosenMap.MapName);
     }
 }
 
